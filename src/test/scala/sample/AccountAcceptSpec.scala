@@ -12,11 +12,15 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with ShouldMatche
     scenario("账户可以被创建，账户必须有所有者，且初始化为大于0的值")(pending)
     scenario("账户可以相互转账") {
       given("账户A，金额100")
+      val accountA = new Account("A", 100.00)
       and("账户B，金额50")
+      val accountB = new Account("B", 50.00)
       when("从账户A中转账50元到账户B")
+      Account.transfer(accountA, accountB, 50.00)
       then("账户A的金额变为50")
+      accountA.balance should be === 50
       and("账户B的金额变为100")
-      pending
+      accountB.balance should be === 100
     }
   }
 }
