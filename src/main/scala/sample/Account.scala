@@ -14,4 +14,6 @@ object Account {
   }
 
   def credit(to: Account, amount: Double) { to.balance += amount }
+
+  def valid(account: Account): Boolean = false //TODO: waiting to be implemented
 }

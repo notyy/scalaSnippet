@@ -11,7 +11,7 @@ class AccountSpec extends Specification with MustThrownMatchers {
     account1.balance must be_>(0.00)
   }
 
-  "金额可以从一个账户转移到另一个账户，转移后的两账户金额总额应该不变" in {
+  "金额可以从一个账户转移到另一个账户，转移后的两账户金额总额应该不变:" in {
     val sum = account1.balance + account2.balance
     Account.transfer(account1, account2, 50)
     account1.balance === 50.00
@@ -19,4 +19,6 @@ class AccountSpec extends Specification with MustThrownMatchers {
     val newSum = account1.balance + account2.balance
     sum === newSum
   }
+
+  "Account can check it's status to see whether it is valid" in pending
 }
