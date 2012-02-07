@@ -8,9 +8,12 @@ organization := "com.kaopua"
 // set the Scala version used for the project
 scalaVersion := "2.9.1"
 
-//add test dependency on specs2
+// add a test dependency on ScalaCheck
+libraryDependencies += "org.scala-tools.testing" %% "scalacheck" % "1.9" % "test"
+
+//add test dependency on scalatest
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2" % "1.7.1" % "test"
+  "org.scalatest" %% "scalatest" % "1.6.1" % "test"
 )
 
 //add slf4j

@@ -1,30 +1,22 @@
 package sample
-import org.specs2._
-import org.specs2.matcher.MustThrownMatchers
+import org.scalatest.FeatureSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.ShouldMatchers
 
-class AccountAcceptSpec extends Specification with MustThrownMatchers {
-  def is =
-    "这是Account的设计规范" ^
-      "一个账户必须有拥有者，且其金额必须不能是负数" ! newAccount ^
-      "金额可以从一个账户转移到另一个账户，转移后的两账户金额总额应该不变" ! transfer ^
-      "账户的合法性可以被检查" ! valid
+class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with ShouldMatchers {
+  feature("账户可以被创建，检查和相互转账") {
+    info("作为账户体系管理者")
+    info("我要求账户体系能够确保账户内的资金可以可靠的流转，账户状态可以被检查")
+    info("以确保整个账户体系的稳固和准确")
 
-  def newAccount = {
-    val account1 = new Account("notyy", 100.00)
-    account1.owner must not be none
-    account1.balance must be_>(0.00)
+    scenario("账户可以被创建，账户必须有所有者，且初始化为大于0的值")(pending)
+    scenario("账户可以相互转账") {
+      given("账户A，金额100")
+      and("账户B，金额50")
+      when("从账户A中转账50元到账户B")
+      then("账户A的金额变为50")
+      and("账户B的金额变为100")
+      pending
+    }
   }
-
-  def transfer = {
-    val account1 = new Account("notyy", 100.00)
-    val account2 = new Account("someOne", 50.00)
-    val sum = account1.balance + account2.balance
-    Account.transfer(account1, account2, 50)
-    account1.balance === 50.00
-    account2.balance === 100.00
-    val newSum = account1.balance + account2.balance
-    sum === newSum
-  }
-
-  def valid = pending
 }
