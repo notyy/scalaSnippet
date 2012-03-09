@@ -1,3 +1,6 @@
+import de.johoop.jacoco4sbt._
+import JacocoPlugin._
+
 // set the name of the project
 name := "sbt11template"
 
@@ -112,4 +115,6 @@ traceLevel := 0
 // seq(oneJarSettings: _*)
 
 // libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
+
+seq(jacoco.settings : _*)
 
