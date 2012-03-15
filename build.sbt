@@ -22,11 +22,10 @@ libraryDependencies ++= Seq(
 //add slf4j
 libraryDependencies += "org.slf4j" % "slf4j-api" % "1.6.4"
 
-//add logback-core
-libraryDependencies += "ch.qos.logback" % "logback-core" % "1.0.1"
+//add log4j
+libraryDependencies += "log4j" % "log4j" % "1.2.16"
 
-//add logback-classic
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.1"
+libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.6.4"
 
 // reduce the maximum number of errors shown by the Scala compiler
 maxErrors := 20
