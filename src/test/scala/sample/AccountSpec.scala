@@ -1,8 +1,8 @@
 package sample
 import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.Spec
+import org.scalatest.FunSpec
 
-class AccountSpec extends Spec with ShouldMatchers {
+class AccountSpec extends FunSpec with ShouldMatchers {
   describe("一个账户") {
     it("初始化的时候应该有所有者，并且余额大于0") {
       val account = new Account("notyy", 100)
