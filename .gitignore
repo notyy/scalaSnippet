@@ -3,6 +3,7 @@
 /.classpath
 /.project
 *.log
+*./*~
 /target
 /project/target
 /project/project/target
