@@ -6,3 +6,6 @@ libraryDependencies ++= Seq(
   "org.jacoco" % "org.jacoco.report" % "0.5.7.201204190339" artifacts(Artifact("org.jacoco.report", "jar", "jar")))
 
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "1.2.3")
+
+//add ensime support
+addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.0.10")

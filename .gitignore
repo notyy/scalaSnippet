@@ -9,3 +9,4 @@
 /project/project/target
 /.settings
 *.DS_Store
+.ensime
