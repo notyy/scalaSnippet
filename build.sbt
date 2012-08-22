@@ -15,9 +15,7 @@ scalaVersion := "2.9.2"
 libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.10.0" % "test"
 
 //add test dependency on scalatest
-libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "1.8" % "test"
-)
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.0.M3" % "test"
 
 //add slf4j
 libraryDependencies += "org.slf4j" % "slf4j-api" % "1.6.6"
