@@ -4,22 +4,22 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.matchers.ShouldMatchers
 
 class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with ShouldMatchers {
-  feature("账户可以被创建，检查和相互转账") {
-    info("作为账户体系管理者")
-    info("我要求账户体系能够确保账户内的资金可以可靠的流转，账户状态可以被检查")
-    info("以确保整个账户体系的稳固和准确")
+  feature("Account can be created,checked,and transfer with each other") {
+    info("As Account Manager")
+    info("I want account system can make sure money in accounts be transfered safely，account status can be checked")
+    info("to ensure the stable and accurate of whole accunting system")
 
-    scenario("账户可以被创建，账户必须有所有者，且初始化为大于0的值")(pending)
-    scenario("账户可以相互转账") {
-      given("账户A，金额100")
+    scenario("Account can be created,Account must have owner and initialization amount must be > 0")(pending)
+    scenario("money can transfer between accounts") {
+      given("Account A，amount 100")
       val accountA = new Account("A", 100.00)
-      and("账户B，金额50")
+      and("Account B，amount 50")
       val accountB = new Account("B", 50.00)
-      when("从账户A中转账50元到账户B")
+      when("transfer 50 from account A to account B")
       Account.transfer(accountA, accountB, 50.00)
-      then("账户A的金额变为50")
+      then("amount in account A becomes 50")
       accountA.balance should be === 50
-      and("账户B的金额变为100")
+      and("amount in account B becomes 100")
       accountB.balance should be === 100
     }
   }
