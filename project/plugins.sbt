@@ -7,5 +7,4 @@ libraryDependencies ++= Seq(
 
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.4")
 
-//add ensime support
-addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.2")
+addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")

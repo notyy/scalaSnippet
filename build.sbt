@@ -2,28 +2,28 @@ import de.johoop.jacoco4sbt._
 import JacocoPlugin._
 
 // set the name of the project
-name := "sbt11template"
+name := "sbtTemplate"
 
 version := "0.0.1"
 
 organization := "com.kaopua"
 
 // set the Scala version used for the project
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.4"
 
-// add a test dependency on ScalaCheck
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.10.0" % "test"
+resolvers ++= Seq(
+  "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
+)
 
-//add test dependency on scalatest
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.0.M4" % "test"
 
-//add slf4j
-libraryDependencies += "org.slf4j" % "slf4j-api" % "1.6.6"
+libraryDependencies ++= Seq(
+	"org.scalacheck" %% "scalacheck" % "1.11.3" % "test",
+	"org.pegdown" % "pegdown" % "1.0.2" % "test", //used in html report
+	"org.scalatest" % "scalatest_2.10" % "2.1.0" % "test",
+	"org.slf4j"         % "slf4j-api"            % "1.7.7",
+    "ch.qos.logback"    % "logback-classic"      % "1.1.2"
+)
 
-//add log4j
-libraryDependencies += "log4j" % "log4j" % "1.2.17"
-
-libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.6.4"
 
 // reduce the maximum number of errors shown by the Scala compiler
 maxErrors := 20
@@ -114,4 +114,11 @@ traceLevel := 0
 // libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
 
 seq(jacoco.settings : _*)
+
+// create beatiful scala test report
+testOptions in Test += Tests.Argument("-h","target/html-test-report")
+
+testOptions in Test += Tests.Argument("-u","target/test-reports")
+
+testOptions in Test += Tests.Argument("-o")
 

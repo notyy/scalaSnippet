@@ -1,10 +1,10 @@
 package sample
 import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.FunSpec
+import org.scalatest.{Matchers, FunSpec}
 
-class AccountSpec extends FunSpec with ShouldMatchers {
+class AccountSpec extends FunSpec with Matchers {
   describe("An Account") {
-    it("should have owner when initialized，and balance >= 0") {
+    it("should have owner when initialized,and balance >= 0") {
       val account = new Account("notyy", 100)
       account.owner should not be (null)
       account.balance should be > (0.00)
@@ -15,10 +15,10 @@ class AccountSpec extends FunSpec with ShouldMatchers {
       val accountB = new Account("B", 50.00)
       val sum = accountA.balance + accountB.balance
       Account.transfer(accountA, accountB, 50)
-      accountA.balance should be === 50.00
-      accountB.balance should be === 100.00
+      accountA.balance should be (50.00)
+      accountB.balance should be (100.00)
       val newSum = accountA.balance + accountB.balance
-      sum should be === newSum
+      sum should be (newSum)
     }
 
     it("Legality of account can be checked")(pending)
