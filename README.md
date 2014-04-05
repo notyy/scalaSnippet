@@ -4,9 +4,9 @@ sbtTemplate
 
 scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件
 
---------------------
-运行sbt test会编译并运行自动化测试
-自动化测试生成的报告文件可在target/html-test-report下打开index.html查看
+=====================
+* 运行sbt test会编译并运行自动化测试
+* 自动化测试生成的报告文件可在target/html-test-report下打开index.html查看
 
 ====================
 release note
