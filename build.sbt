@@ -1,5 +1,6 @@
 import de.johoop.jacoco4sbt._
 import JacocoPlugin._
+import sbt._
 
 // set the name of the project
 name := "sbtTemplate"
@@ -17,13 +18,16 @@ resolvers ++= Seq(
 
 
 libraryDependencies ++= Seq(
-	"org.scalacheck" %% "scalacheck" % "1.11.3" % "test",
-	"org.pegdown" % "pegdown" % "1.0.2" % "test", //used in html report
-	"org.scalatest" % "scalatest_2.10" % "2.1.0" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.11.3" % "test,it,ft",
+	"org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
+	"org.scalatest" % "scalatest_2.10" % "2.1.0" % "test,it,ft",
 	"org.slf4j"         % "slf4j-api"            % "1.7.7",
     "ch.qos.logback"    % "logback-classic"      % "1.1.2"
 )
 
+val helloTask = TaskKey[Unit]("hello", "Print hello")
+
+helloTask := println("hello world")
 
 // reduce the maximum number of errors shown by the Scala compiler
 maxErrors := 20
@@ -76,9 +80,6 @@ timingFormat := {
 // only use a single thread for building
 parallelExecution := false
 
-// Execute tests in the current project serially
-//   Tests from other projects may still run concurrently.
-parallelExecution in Test := false
 
 // Use Scala from a directory on the filesystem instead of retrieving from a repository
 //scalaHome := Some(file("/home/user/scala/trunk/"))
@@ -115,10 +116,30 @@ traceLevel := 0
 
 seq(jacoco.settings : _*)
 
-// create beatiful scala test report
-testOptions in Test += Tests.Argument("-h","target/html-test-report")
+// Execute tests in the current project serially
+//   Tests from other projects may still run concurrently.
+parallelExecution in Test := false
 
-testOptions in Test += Tests.Argument("-u","target/test-reports")
+parallelExecution in IntegrationTest := false
 
-testOptions in Test += Tests.Argument("-o")
+parallelExecution in FuncTest := false
 
+
+// create beautiful scala test report
+testOptions in Test ++= Seq(
+//  Tests.Argument("-h","target/html-unit-test-report"),
+//  Tests.Argument("-u","target/unit-test-reports"),
+//  Tests.Argument("-o")
+)
+
+testOptions in IntegrationTest ++= Seq(
+  Tests.Argument("-h","target/html-integration-test-report"),
+  Tests.Argument("-u","target/integration-test-reports"),
+  Tests.Argument("-o")
+)
+
+testOptions in FuncTest ++= Seq(
+  Tests.Argument("-h","target/html-function-test-report"),
+  Tests.Argument("-u","target/function-test-reports"),
+  Tests.Argument("-o")
+)
