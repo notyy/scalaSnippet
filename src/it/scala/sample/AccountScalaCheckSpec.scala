@@ -1,4 +1,5 @@
 package sample
+
 import org.scalatest.{Matchers, FeatureSpec, GivenWhenThen}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
 
