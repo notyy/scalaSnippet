@@ -5,7 +5,7 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
   feature("Account can be created,checked,and transfer with each other") {
     info("As Account Manager")
     info("I want account system can make sure money in accounts be transfered safely,account status can be checked")
-    info("to ensure the stable and accurate of whole accunting system")
+    info("to ensure the stable and accurate of whole accounting system")
 
     scenario("Account can be created,Account must have owner and initialization amount must be > 0")(pending)
     scenario("money can transfer between accounts") {
