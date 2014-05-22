@@ -15,10 +15,12 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
       val accountB = new Account("B", 50.00)
       When("transfer 50 from account A to account B")
       Account.transfer(accountA, accountB, 50.00)
-      When("amount in account A becomes 50")
+      Then("amount in account A becomes 50")
       accountA.balance should be (50)
       And("amount in account B becomes 100")
       accountB.balance should be (100)
     }
+
+    scenario("can not transfer more money than balance of the account")(pending)
   }
 }
