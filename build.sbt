@@ -22,7 +22,8 @@ libraryDependencies ++= Seq(
 	"org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
 	"org.scalatest" % "scalatest_2.10" % "2.1.0" % "test,it,ft",
 	"org.slf4j"         % "slf4j-api"            % "1.7.7",
-    "ch.qos.logback"    % "logback-classic"      % "1.1.2"
+    "ch.qos.logback"    % "logback-classic"      % "1.1.2",
+  "junit" % "junit" % "4.11" % "test"
 )
 
 val helloTask = TaskKey[Unit]("hello", "Print hello")
