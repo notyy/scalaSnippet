@@ -7,7 +7,7 @@ name := "sbtTemplate"
 
 version := "0.0.1"
 
-organization := "com.kaopua"
+organization := "com.github.notyy"
 
 // set the Scala version used for the project
 scalaVersion := "2.10.4"
