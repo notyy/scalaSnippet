@@ -6,8 +6,8 @@ class AccountSpec extends FunSpec with Matchers {
   describe("An Account") {
     it("should have owner when initialized,and balance >= 0") {
       val account = new Account("notyy", 100)
-      account.owner should not be (null)
-      account.balance should be > (0.00)
+      account.owner should not be null
+      account.balance should be > 0.00
     }
 
     it("amount can be transfer between accounts,total balance should be same after transfer") {
