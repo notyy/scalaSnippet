@@ -2,10 +2,9 @@ package sample
 
 object Segment {
 
-  trait Expression
   trait Oprand
 
-  case class <(value: Oprand, variable: Oprand) extends Expression with Oprand {
+  case class <(value: Oprand, variable: Oprand) extends Oprand {
     def <(right: Oprand) = new <(this, right)
   } 
   
@@ -16,6 +15,5 @@ object Segment {
     def <(str: String):(<) = <(Variable(str))
   }
 
-  implicit def value2Int(value: Value):Int = value.value
   implicit def int2Value(value: Int):Value = Value(value)
 }

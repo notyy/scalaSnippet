@@ -1,18 +1,19 @@
 package sample
 
+import sample.Segment._
 import org.scalatest.{FunSpec, ShouldMatchers}
 
 class SegmentTest extends FunSpec with ShouldMatchers {
    describe("segment"){
- //    it("can be expressed by UnOp"){
- //      val expr = 5 < "EcIo"
- //      val expr1 = 5 < "EcIo" < 10
- //      expr match {
- //        case (Value(left) < Variable(name)) => println(s"$left < $name")
- //        case ((Value(left) < Variable(name)) < Value(right)) => println(s"$left < $name < $right")
- //        case _ => println("don't know")
- //      }
- //    }
+     it("can be expressed by UnOp"){
+       val expr = 5 < "EcIo"
+       val expr1 = 5 < "EcIo" < 10
+       expr1 match {
+         case (Value(left) < Variable(name)) => println(s"$left < $name")
+         case (Value(left) < Variable(name) < Value(right)) => println(s"$left < $name < $right")
+         case _ => println("don't know")
+       }
+     }
      it("expression can be regexed"){
        val BinOpLT = """(\d+)(<|<=|=)(\w+)""".r
        val Between = """(\d+)(<|<=|=)(\w+)(<|<=|=)(\d+)""".r
