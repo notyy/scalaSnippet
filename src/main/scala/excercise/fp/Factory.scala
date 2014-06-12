@@ -6,7 +6,7 @@ object Factory {
   type FileName = String
 
   def processInput: FileName => Unit = fileName => {
-    createPlan(Source.fromFile(fileName).getLines().toList).foreach(formatShowPlan)
+    createPlan(Source.fromFile(fileName).getLines().toList).map(formatShowPlan).foreach(println)
   }
 
   def createPlan: List[String] => List[Plan] = requestDesc => {
@@ -84,10 +84,10 @@ object Factory {
     case (machineType, quantity) => (1 to quantity).map(i => WorkProcess(Machine(machineType, i), Nil)).toList
   }
 
-  def formatShowPlan: Plan => Unit = plan => {
-    println(s"Order #${plan.orderId}")
-    plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.mkString("\t")}").foreach(println)
-    println(s"Total: ${calcTime(plan)} hours")
+  def formatShowPlan: Plan => String = plan => {
+    s"Order #${plan.orderId}\n" +
+      plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.mkString("\t")}").mkString("\n") + "\n"
+      s"Total: ${calcTime(plan)} hours"
   }
 
   def machine2Str: Machine => String = m => s"${m.mType.toString.head}${m.id}"

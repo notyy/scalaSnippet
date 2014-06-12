@@ -77,7 +77,7 @@ class packageFpTest extends FunSpec with ShouldMatchers {
             WorkProcess(Machine(PMachine, 1), List("zteT", "zteW")),
             WorkProcess(Machine(RMachine, 1), List("zteT", "zteW")))
           val plan = Plan(1, workProcess)
-          formatShowPlan(plan)
+          println(formatShowPlan(plan))
         }
       }
     }
