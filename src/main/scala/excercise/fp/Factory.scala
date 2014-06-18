@@ -3,19 +3,16 @@ package excercise.fp
 import scala.io.Source
 
 object Factory {
-  type FileName = String
+  case class FileName(value: String) extends AnyVal
 
   def processInput: FileName => Unit = fileName => {
-    createPlan(Source.fromFile(fileName).getLines().toList).map(formatShowPlan).foreach(println)
+    val request: List[String] = Source.fromFile(fileName.value).getLines().toList
+    createPlan(request).map(formatShowPlan).foreach(println)
   }
 
   def createPlan: List[String] => List[Plan] = requestDesc => {
     val (resources, orders) = parseRequest(requestDesc)
-    createPlan(naiveCreatePlan(resources), orders)
-  }
-
-  def createPlan(f: Order => Plan, orders: List[Order]): List[Plan] = {
-    orders.map(f)
+    orders.map(naiveCreatePlan(resources))
   }
 
   trait MachineType
@@ -27,15 +24,14 @@ object Factory {
 
   type Quantity = Int
   type Product = String
+  type ResourceDesc = (MachineType, Quantity)
 
   case class Order(id: Int, products: List[Product])
 
   case class Machine(mType: MachineType,id: Int)
-
   case class Plan(orderId: Int, workProcess: List[WorkProcess])
-  case class WorkProcess(machine: Machine, products: List[Product])
 
-  type ResourceDesc = (MachineType, Quantity)
+  case class WorkProcess(machine: Machine, products: List[Product])
 
   def parseRequest: List[String] => (List[ResourceDesc], List[Order]) = src => {
     val index = src.indexWhere(_.startsWith("Order:"))
@@ -87,13 +83,14 @@ object Factory {
   def formatShowPlan: Plan => String = plan => {
     s"Order #${plan.orderId}\n" +
       plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.mkString("\t")}").mkString("\n") + "\n"
-      s"Total: ${calcTime(plan)} hours"
+      s"Total: ${calcTime(productMachineTime)(plan)} hours"
   }
 
   def machine2Str: Machine => String = m => s"${m.mType.toString.head}${m.id}"
 
   type Hour = Int
-  val productMachineTime: Map[Product,Map[MachineType,Hour]] = Map(
+  type ProductMachineTime = Map[Product,Map[MachineType,Hour]]
+  val productMachineTime: ProductMachineTime  = Map(
     "zteT" -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 2,PMachine -> 1),
     "zteW" -> Map(GMachine -> 2,MMachine -> 2,RMachine -> 3,Cooler -> 2,PMachine -> 2),
     "zteX" -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 5,PMachine -> 1),
@@ -101,7 +98,7 @@ object Factory {
     "zteZ" -> Map(GMachine -> 2,MMachine -> 3,RMachine -> 2,Cooler -> 1,PMachine -> 1)
   )
 
-  def calcTime:Plan => Int = plan => {
-    (for(w <- plan.workProcess; p <- w.products) yield productMachineTime(p)(w.machine.mType)).sum
+  def calcTime:ProductMachineTime => Plan => Int = pmTime => plan => {
+    (for(w <- plan.workProcess; p <- w.products) yield pmTime(p)(w.machine.mType)).sum
   }
 }

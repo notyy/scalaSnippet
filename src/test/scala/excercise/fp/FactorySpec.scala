@@ -3,7 +3,7 @@ package excercise.fp
 import org.scalatest.{ShouldMatchers, FunSpec}
 import Factory._
 
-class packageFpTest extends FunSpec with ShouldMatchers {
+class FactorySpec extends FunSpec with ShouldMatchers {
   describe("object Factory defines many functions") {
     describe("createPlan") {
       it("should create order processing plan" +
