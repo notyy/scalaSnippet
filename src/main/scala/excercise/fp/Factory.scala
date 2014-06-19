@@ -22,8 +22,8 @@ object Factory {
   case object PMachine extends MachineType
   case object Cooler extends MachineType
 
-  type Quantity = Int
-  type Product = String
+  case class Quantity(value: Int) extends AnyVal
+  case class Product(value: String) extends AnyVal
   type ResourceDesc = (MachineType, Quantity)
 
   case class Order(id: Int, products: List[Product])
@@ -41,7 +41,7 @@ object Factory {
 
   def parseResourceDesc: String => ResourceDesc = s => {
     val splitted = s.split(":")
-    (strToMachineType(splitted.head), splitted.last.trim.toInt)
+    (strToMachineType(splitted.head), Quantity(splitted.last.trim.toInt))
   }
 
   val machineTypeStrMap: Map[String, MachineType] = Map("G" -> GMachine, "M" -> MMachine, "R" -> RMachine, "P" -> PMachine)
@@ -49,7 +49,7 @@ object Factory {
   def strToMachineType: String => MachineType = machineTypeStrMap(_)
 
   def parseOrderDesc: Int => String => Order = orderId => str => {
-    Order(orderId, str.split(":").last.trim.split(" ").toList)
+    Order(orderId, str.split(":").last.trim.split(" ").toList.map(Product))
   }
 
   def naiveCreatePlan: List[ResourceDesc] => Order => Plan = rDesc => order => {
@@ -77,12 +77,12 @@ object Factory {
   }
 
   def initializeMachine: ResourceDesc => List[WorkProcess] = {
-    case (machineType, quantity) => (1 to quantity).map(i => WorkProcess(Machine(machineType, i), Nil)).toList
+    case (machineType, quantity) => (1 to quantity.value).map(i => WorkProcess(Machine(machineType, i), Nil)).toList
   }
 
   def formatShowPlan: Plan => String = plan => {
     s"Order #${plan.orderId}\n" +
-      plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.mkString("\t")}").mkString("\n") + "\n"
+      plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.map(_.value).mkString("\t")}").mkString("\n") + "\n" +
       s"Total: ${calcTime(productMachineTime)(plan)} hours"
   }
 
@@ -91,11 +91,11 @@ object Factory {
   type Hour = Int
   type ProductMachineTime = Map[Product,Map[MachineType,Hour]]
   val productMachineTime: ProductMachineTime  = Map(
-    "zteT" -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 2,PMachine -> 1),
-    "zteW" -> Map(GMachine -> 2,MMachine -> 2,RMachine -> 3,Cooler -> 2,PMachine -> 2),
-    "zteX" -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 5,PMachine -> 1),
-    "zteY" -> Map(GMachine -> 1,MMachine -> 1,RMachine -> 4,Cooler -> 3,PMachine -> 3),
-    "zteZ" -> Map(GMachine -> 2,MMachine -> 3,RMachine -> 2,Cooler -> 1,PMachine -> 1)
+    Product("zteT") -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 2,PMachine -> 1),
+    Product("zteW") -> Map(GMachine -> 2,MMachine -> 2,RMachine -> 3,Cooler -> 2,PMachine -> 2),
+    Product("zteX") -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 5,PMachine -> 1),
+    Product("zteY") -> Map(GMachine -> 1,MMachine -> 1,RMachine -> 4,Cooler -> 3,PMachine -> 3),
+    Product("zteZ") -> Map(GMachine -> 2,MMachine -> 3,RMachine -> 2,Cooler -> 1,PMachine -> 1)
   )
 
   def calcTime:ProductMachineTime => Plan => Int = pmTime => plan => {

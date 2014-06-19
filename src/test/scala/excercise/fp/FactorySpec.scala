@@ -26,13 +26,13 @@ class FactorySpec extends FunSpec with ShouldMatchers {
 
       describe("parseResourceDesc") {
         it("can parse G: 2 to (G,2)") {
-          parseResourceDesc("G:  2") shouldBe(GMachine, 2)
+          parseResourceDesc("G:  2") shouldBe(GMachine, Quantity(2))
         }
       }
 
       describe("initializeMachine") {
         it("can convert machineType&quantity to machine instance") {
-          val rd: ResourceDesc = (GMachine, 2)
+          val rd: ResourceDesc = (GMachine, Quantity(2))
           val machines = initializeMachine(rd)
           machines.size shouldBe 2
           machines(0).machine.id shouldBe 1
@@ -51,31 +51,31 @@ class FactorySpec extends FunSpec with ShouldMatchers {
             WorkProcess(Machine(PMachine, 1), Nil)
           )
 
-          val zteTArranged = arrangeProduction(workProcesses)("zteT")
-          zteTArranged(0).products shouldBe List("zteT")
+          val zteTArranged = arrangeProduction(workProcesses)(Product("zteT"))
+          zteTArranged(0).products shouldBe List(Product("zteT"))
           zteTArranged(1).products shouldBe Nil
-          zteTArranged(2).products shouldBe List("zteT")
-          zteTArranged(3).products shouldBe List("zteT")
-          zteTArranged(4).products shouldBe List("zteT")
+          zteTArranged(2).products shouldBe List(Product("zteT"))
+          zteTArranged(3).products shouldBe List(Product("zteT"))
+          zteTArranged(4).products shouldBe List(Product("zteT"))
 
-          val zteWArranged = arrangeProduction(zteTArranged)("zteW")
+          val zteWArranged = arrangeProduction(zteTArranged)(Product("zteW"))
           zteWArranged.foreach(println)
-          zteWArranged(0).products shouldBe List("zteT")
-          zteWArranged(1).products shouldBe List("zteW")
-          zteWArranged(2).products shouldBe List("zteT", "zteW")
-          zteWArranged(3).products shouldBe List("zteT", "zteW")
-          zteWArranged(4).products shouldBe List("zteT", "zteW")
+          zteWArranged(0).products shouldBe List(Product("zteT"))
+          zteWArranged(1).products shouldBe List(Product("zteW"))
+          zteWArranged(2).products shouldBe List(Product("zteT"), Product("zteW"))
+          zteWArranged(3).products shouldBe List(Product("zteT"), Product("zteW"))
+          zteWArranged(4).products shouldBe List(Product("zteT"), Product("zteW"))
         }
       }
 
       describe("formatShowPlan") {
         it("should pretty print a plan") {
           val workProcess = List(
-            WorkProcess(Machine(GMachine, 1), List("zteT")),
-            WorkProcess(Machine(GMachine, 2), List("zteW")),
-            WorkProcess(Machine(MMachine, 1), List("zteT", "zteW")),
-            WorkProcess(Machine(PMachine, 1), List("zteT", "zteW")),
-            WorkProcess(Machine(RMachine, 1), List("zteT", "zteW")))
+            WorkProcess(Machine(GMachine, 1), List(Product("zteT"))),
+            WorkProcess(Machine(GMachine, 2), List(Product("zteW"))),
+            WorkProcess(Machine(MMachine, 1), List(Product("zteT"), Product("zteW"))),
+            WorkProcess(Machine(PMachine, 1), List(Product("zteT"), Product("zteW"))),
+            WorkProcess(Machine(RMachine, 1), List(Product("zteT"), Product("zteW"))))
           val plan = Plan(1, workProcess)
           println(formatShowPlan(plan))
         }
