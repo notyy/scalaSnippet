@@ -3,18 +3,24 @@ package excercise.fp
 import scala.io.Source
 
 object Factory {
+
   case class FileName(value: String) extends AnyVal
 
   def processInput: FileName => Unit = fileName => {
-    val request: List[String] = Source.fromFile(fileName.value).getLines().toList
+    val request = Source.fromFile(fileName.value).getLines().toList
     createPlan(request).map(formatShowPlan).foreach(println)
   }
+
+  case class Plan(orderId: Int, workProcesses: List[WorkProcess])
+  case class Product(value: String) extends AnyVal
 
   def createPlan: List[String] => List[Plan] = requestDesc => {
     val (resources, orders) = parseRequest(requestDesc)
     orders.map(naiveCreatePlan(resources))
   }
 
+  case class Order(id: Int, products: List[Product])
+  type ResourceDesc = (MachineType, Quantity)
   trait MachineType
   case object GMachine extends MachineType
   case object MMachine extends MachineType
@@ -23,20 +29,24 @@ object Factory {
   case object Cooler extends MachineType
 
   case class Quantity(value: Int) extends AnyVal
-  case class Product(value: String) extends AnyVal
-  type ResourceDesc = (MachineType, Quantity)
 
-  case class Order(id: Int, products: List[Product])
+  def parseRequest: List[String] => (List[ResourceDesc], List[Order]) = {
+    splitRequest andThen transformRequest.tupled
+  }
 
-  case class Machine(mType: MachineType,id: Int)
-  case class Plan(orderId: Int, workProcess: List[WorkProcess])
+  def splitRequest: List[String] => (List[String], List[String]) = src =>{
+    src.splitAt(src.indexWhere(_.startsWith("Order:")))
+  }
 
-  case class WorkProcess(machine: Machine, products: List[Product])
+  def transformRequest: (List[String], List[String]) => (List[ResourceDesc], List[Order]) =
+    (resourceDescStr, orderStrs) => {
+      (resourceDescStr.map(parseResourceDesc), orderStrs.zipWithIndex.map {
+        case (order, id) => parseOrderDesc(id)(order)
+      })
+    }
 
-  def parseRequest: List[String] => (List[ResourceDesc], List[Order]) = src => {
-    val index = src.indexWhere(_.startsWith("Order:"))
-    val (resourceDescStr, orderStrs) = src.splitAt(index)
-    (resourceDescStr.map(parseResourceDesc), orderStrs.zipWithIndex.map{case (order, id) => parseOrderDesc(id)(order)})
+  def parseOrderDesc: Int => String => Order = orderId => str => {
+    Order(orderId, str.split(":").last.trim.split(" ").toList.map(Product))
   }
 
   def parseResourceDesc: String => ResourceDesc = s => {
@@ -44,30 +54,34 @@ object Factory {
     (strToMachineType(splitted.head), Quantity(splitted.last.trim.toInt))
   }
 
-  val machineTypeStrMap: Map[String, MachineType] = Map("G" -> GMachine, "M" -> MMachine, "R" -> RMachine, "P" -> PMachine)
-
-  def strToMachineType: String => MachineType = machineTypeStrMap(_)
-
-  def parseOrderDesc: Int => String => Order = orderId => str => {
-    Order(orderId, str.split(":").last.trim.split(" ").toList.map(Product))
-  }
-
   def naiveCreatePlan: List[ResourceDesc] => Order => Plan = rDesc => order => {
     val workProcesses = rDesc.flatMap(initializeMachine)
     naiveCreatePlanFromWorkProcess(workProcesses)(order)
   }
 
+  case class WorkProcess(machine: Machine, products: List[Product])
+  case class Machine(mType: MachineType, id: Int)
+
+  def initializeMachine: ResourceDesc => List[WorkProcess] = {
+    case (machineType, quantity) => (1 to quantity.value).map(i =>
+      WorkProcess(Machine(machineType, i), Nil)).toList
+  }
+
   def naiveCreatePlanFromWorkProcess: List[WorkProcess] => Order => Plan = workProcesses => order => {
-    Plan(order.id, arrange(workProcesses)(order.products))
+    Plan(order.id, arrange(arrangeProduction)(workProcesses)(order.products))
   }
 
-  def arrange: List[WorkProcess] => List[Product] => List[WorkProcess] = workProcesses => products => {
-    products.foldLeft(workProcesses)((wps, product) => arrangeProduction(wps)(product))
-  }
+  def arrange: ArrangeFunc => List[WorkProcess] => List[Product] => List[WorkProcess] =
+    f => workProcesses => products => {
+      products.foldLeft(workProcesses)((wps, product) => f(wps)(product))
+    }
 
-  def arrangeProduction: List[WorkProcess] => Product => List[WorkProcess] = workProcesses => product => {
+  type ArrangeFunc = List[WorkProcess] => Product => List[WorkProcess]
+
+  def arrangeProduction: ArrangeFunc = workProcesses => product => {
     workProcesses.groupBy(_.machine.mType).values.map(
-      workProcessByType => assignProduct(workProcessByType, product)).flatten.toList.sortBy(_.machine.toString)
+      workProcessByType => assignProduct(workProcessByType, product)).
+        flatten.toList.sortBy(_.machine.toString)
   }
 
   def assignProduct(processes: List[WorkProcess], product: Product): List[WorkProcess] = {
@@ -76,29 +90,29 @@ object Factory {
     sorted.updated(0, WorkProcess(idlest.machine, idlest.products :+ product))
   }
 
-  def initializeMachine: ResourceDesc => List[WorkProcess] = {
-    case (machineType, quantity) => (1 to quantity.value).map(i => WorkProcess(Machine(machineType, i), Nil)).toList
-  }
-
   def formatShowPlan: Plan => String = plan => {
     s"Order #${plan.orderId}\n" +
-      plan.workProcess.map(w => s"${machine2Str(w.machine)}: ${w.products.map(_.value).mkString("\t")}").mkString("\n") + "\n" +
+      plan.workProcesses.map(w => s"${machine2Str(w.machine)}: ${w.products.map(_.value).mkString("\t")}").mkString("\n") + "\n" +
       s"Total: ${calcTime(productMachineTime)(plan)} hours"
   }
+
+  val machineTypeStrMap: Map[String, MachineType] = Map("G" -> GMachine, "M" -> MMachine, "R" -> RMachine, "P" -> PMachine)
+
+  def strToMachineType: String => MachineType = machineTypeStrMap(_)
 
   def machine2Str: Machine => String = m => s"${m.mType.toString.head}${m.id}"
 
   type Hour = Int
-  type ProductMachineTime = Map[Product,Map[MachineType,Hour]]
-  val productMachineTime: ProductMachineTime  = Map(
-    Product("zteT") -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 2,PMachine -> 1),
-    Product("zteW") -> Map(GMachine -> 2,MMachine -> 2,RMachine -> 3,Cooler -> 2,PMachine -> 2),
-    Product("zteX") -> Map(GMachine -> 3,MMachine -> 3,RMachine -> 1,Cooler -> 5,PMachine -> 1),
-    Product("zteY") -> Map(GMachine -> 1,MMachine -> 1,RMachine -> 4,Cooler -> 3,PMachine -> 3),
-    Product("zteZ") -> Map(GMachine -> 2,MMachine -> 3,RMachine -> 2,Cooler -> 1,PMachine -> 1)
+  type ProductMachineTime = Map[Product, Map[MachineType, Hour]]
+  val productMachineTime: ProductMachineTime = Map(
+    Product("zteT") -> Map(GMachine -> 3, MMachine -> 3, RMachine -> 1, Cooler -> 2, PMachine -> 1),
+    Product("zteW") -> Map(GMachine -> 2, MMachine -> 2, RMachine -> 3, Cooler -> 2, PMachine -> 2),
+    Product("zteX") -> Map(GMachine -> 3, MMachine -> 3, RMachine -> 1, Cooler -> 5, PMachine -> 1),
+    Product("zteY") -> Map(GMachine -> 1, MMachine -> 1, RMachine -> 4, Cooler -> 3, PMachine -> 3),
+    Product("zteZ") -> Map(GMachine -> 2, MMachine -> 3, RMachine -> 2, Cooler -> 1, PMachine -> 1)
   )
 
-  def calcTime:ProductMachineTime => Plan => Int = pmTime => plan => {
-    (for(w <- plan.workProcess; p <- w.products) yield pmTime(p)(w.machine.mType)).sum
+  def calcTime: ProductMachineTime => Plan => Int = pmTime => plan => {
+    (for (w <- plan.workProcesses; p <- w.products) yield pmTime(p)(w.machine.mType)).sum
   }
 }
