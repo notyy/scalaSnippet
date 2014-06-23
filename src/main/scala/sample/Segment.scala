@@ -2,15 +2,15 @@ package sample
 
 object Segment {
 
-  trait Oprand
+  trait Expression
 
-  case class <(value: Oprand, variable: Oprand) extends Oprand {
-    def <(right: Oprand) = new <(this, right)
+  case class <(value: Expression, variable: Expression) extends Expression {
+    def <(right: Expression) = new <(this, right)
   } 
   
-  case class Variable(name: String) extends Oprand
+  case class Variable(name: String) extends Expression
 
-  case class Value(value: Int) extends Oprand {
+  case class Value(value: Int) extends Expression {
     def <(variable: Variable): (<) = new <(this, variable)
     def <(str: String):(<) = <(Variable(str))
   }
