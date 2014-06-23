@@ -12,7 +12,7 @@ trait TransactionManager {
   def executeSQL(sql: String): List[User]
 }
 
-trait DefaultTransactionManager extends TransactionManager{
+trait TransactionManagerImpl extends TransactionManager{
   override def executeSQL(sql: String): List[User] = ???
 }
 
@@ -21,8 +21,7 @@ trait UserRepositoryImpl extends UserRepository{
   override def loadUser: List[User] = executeSQL("SELECT * FROM user")
 }
 
-trait DefaultUserRepository extends UserRepositoryImpl with DefaultTransactionManager
-
+trait DefaultUserRepositoryImpl extends UserRepositoryImpl with TransactionManagerImpl
 trait UserServiceImpl extends UserService {
   this: UserRepository =>
   override def findAll: List[User] = loadUser
