@@ -1,9 +1,11 @@
 package excercise.fp
 
-import org.scalatest.{ShouldMatchers, FunSpec}
-import Factory._
+import excercise.fp.Factory._
+import org.scalatest.tags.Slow
+import org.scalatest.{FunSpec, ShouldMatchers}
 
-class FactorySpec extends FunSpec with ShouldMatchers {
+@Slow
+class FactorySpec extends FunSpec with ShouldMatchers{
   describe("object Factory defines many functions") {
     describe("createPlan") {
       it("should create order processing plan" +
@@ -68,8 +70,9 @@ class FactorySpec extends FunSpec with ShouldMatchers {
         }
       }
 
-      describe("formatShowPlan") {
-        it("should pretty print a plan") {
+      describe("formatShowPlan"){
+        it("should pretty print a plan"){
+
           val workProcess = List(
             WorkProcess(Machine(GMachine, 1), List(Product("zteT"))),
             WorkProcess(Machine(GMachine, 2), List(Product("zteW"))),
