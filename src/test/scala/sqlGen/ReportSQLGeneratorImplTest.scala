@@ -1,7 +1,6 @@
 package sqlGen
 
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, ShouldMatchers}
 import sqlGen.Domain._
 
 class ReportSQLGeneratorImplTest extends FunSpec with ShouldMatchers {
