@@ -7,6 +7,6 @@ object Domain {
 
   case class TimeSegment(start: String, end: String)
 
-  case class SQL(str: String)
-  case class SQLPart(str: String)
+  case class SQL(str: String) extends AnyVal
+  case class SQLPart(str: String) extends AnyVal
 }
