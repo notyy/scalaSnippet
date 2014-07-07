@@ -3,13 +3,14 @@ package excercise.fp
 import excercise.fp.Factory._
 import org.scalatest.tags.Slow
 import org.scalatest.{FunSpec, ShouldMatchers}
+import tags.Tags.{FastTest, DbTest}
 
 @Slow
 class FactorySpec extends FunSpec with ShouldMatchers{
   describe("object Factory defines many functions") {
     describe("createPlan") {
       it("should create order processing plan" +
-        " for given ProductionResource and OrderRequest") {
+        " for given ProductionResource and OrderRequest",DbTest) {
         val request = """G:	2
                         |M:	1
                         |R:	1
@@ -33,7 +34,7 @@ class FactorySpec extends FunSpec with ShouldMatchers{
       }
 
       describe("initializeMachine") {
-        it("can convert machineType&quantity to machine instance") {
+        it("can convert machineType&quantity to machine instance",FastTest) {
           val rd: ResourceDesc = (GMachine, Quantity(2))
           val machines = initializeMachine(rd)
           machines.size shouldBe 2
