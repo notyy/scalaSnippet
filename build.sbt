@@ -130,7 +130,6 @@ parallelExecution in FuncTest := false
 testOptions in Test ++= Seq(
 //  Tests.Argument("-h","target/html-unit-test-report"),
 //  Tests.Argument("-u","target/unit-test-reports"),
-  Tests.Argument("-l", "org.scalatest.tags.Slow"),
   Tests.Argument("-o")
 )
 
