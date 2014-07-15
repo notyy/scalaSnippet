@@ -13,18 +13,25 @@ organization := "com.github.notyy"
 scalaVersion := "2.10.4"
 
 resolvers ++= Seq(
-  "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
+  "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 )
-
 
 libraryDependencies ++= Seq(
-	"org.scalacheck" %% "scalacheck" % "1.11.3" % "test,it,ft",
-	"org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
-	"org.scalatest" % "scalatest_2.10" % "2.1.0" % "test,it,ft",
-	"org.slf4j"         % "slf4j-api"            % "1.7.7",
-    "ch.qos.logback"    % "logback-classic"      % "1.1.2",
-  "junit" % "junit" % "4.11" % "test"
+  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test,it,ft",
+  "org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
+  "org.scalatest" % "scalatest_2.10" % "2.1.0" % "test,it,ft",
+  "org.slf4j" % "slf4j-api" % "1.7.7",
+  "com.storm-enroute" %% "scalameter" % "0.5-SNAPSHOT" % "test",
+  "ch.qos.logback" % "logback-classic" % "1.1.2",
+  "junit" % "junit" % "4.11" % "test",
+  "com.h2database" % "h2" % "1.3.148",
+  "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
+
+testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
+
+logBuffered := false
 
 val helloTask = TaskKey[Unit]("hello", "Print hello")
 
@@ -130,17 +137,17 @@ parallelExecution in FuncTest := false
 testOptions in Test ++= Seq(
 //  Tests.Argument("-h","target/html-unit-test-report"),
 //  Tests.Argument("-u","target/unit-test-reports"),
-  Tests.Argument("-o")
+  Tests.Argument(TestFrameworks.ScalaTest,"-o")
 )
 
-testOptions in IntegrationTest ++= Seq(
-  Tests.Argument("-h","target/html-integration-test-report"),
-  Tests.Argument("-u","target/integration-test-reports"),
-  Tests.Argument("-o")
-)
-
-testOptions in FuncTest ++= Seq(
-  Tests.Argument("-h","target/html-function-test-report"),
-  Tests.Argument("-u","target/function-test-reports"),
-  Tests.Argument("-o")
-)
+//testOptions in IntegrationTest ++= Seq(
+//  Tests.Argument("-h","target/html-integration-test-report"),
+//  Tests.Argument("-u","target/integration-test-reports"),
+//  Tests.Argument("-o")
+//)
+//
+//testOptions in FuncTest ++= Seq(
+//  Tests.Argument("-h","target/html-function-test-report"),
+//  Tests.Argument("-u","target/function-test-reports"),
+//  Tests.Argument("-o")
+//)
