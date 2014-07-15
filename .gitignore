@@ -11,3 +11,4 @@
 *.DS_Store
 .ensime
 .idea*
+/tmp
