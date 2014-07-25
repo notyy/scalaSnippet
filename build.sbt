@@ -122,7 +122,7 @@ traceLevel := 0
 
 // libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
 
-seq(jacoco.settings : _*)
+jacoco.settings
 
 // Execute tests in the current project serially
 //   Tests from other projects may still run concurrently.
@@ -135,8 +135,14 @@ parallelExecution in FuncTest := false
 
 // create beautiful scala test report
 testOptions in Test ++= Seq(
-//  Tests.Argument("-h","target/html-unit-test-report"),
-//  Tests.Argument("-u","target/unit-test-reports"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-h","target/html-unit-test-report"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-u","target/unit-test-reports"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-o")
+)
+
+testOptions in jacoco.Config ++= Seq(
+  Tests.Argument(TestFrameworks.ScalaTest,"-h","target/html-unit-test-report"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-u","target/unit-test-reports"),
   Tests.Argument(TestFrameworks.ScalaTest,"-o")
 )
 
