@@ -2,9 +2,10 @@ package implicits.db
 
 import java.sql.Connection
 
-import org.scalatest.FunSpec
+import org.scalatest.{Ignore, FunSpec}
 import org.scalatest.mock.MockitoSugar
 
+@Ignore
 class DBAccessorTest extends FunSpec with MockitoSugar {
   trait MockConnectionFactory extends ConnectionFactory{
     val mockConnection = mock[Connection]
