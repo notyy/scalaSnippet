@@ -1,6 +1,6 @@
 package monad
 
-import monad.StringPresentableMonad.StringPresentable
+import monad.StringPresentable.StringPresentable
 
 import scala.io.Source
 

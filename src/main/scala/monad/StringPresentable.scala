@@ -1,6 +1,6 @@
 package monad
 
-object StringPresentableMonad {
+object StringPresentable {
 
   trait StringPresentable[T] {
     def toString(value: T): String

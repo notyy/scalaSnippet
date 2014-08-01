@@ -2,7 +2,7 @@ package monad
 
 import java.io.File
 
-import monad.StringPresentableMonad.Account
+import monad.StringPresentable.Account
 import org.scalatest.{BeforeAndAfter, FunSpec, ShouldMatchers}
 
 import scala.io.Source
