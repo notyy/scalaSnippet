@@ -14,14 +14,11 @@ object StringPresentableMonad {
     override def fromString(value: String): String = value
   }
 
-//  class ListIsStringPresentable[T] extends StringPresentable[List[T]] {
-//    def toStringImpli(value: List[T])(implicit m: StringPresentable[T]): String = value.map(m.toString).mkString("\n")
+//  implicit object ListIsStringPresentable[T] extends StringPresentable[List[T]] {
 //
-//    def fromStringImpli(value: String)(implicit m: StringPresentable[T]): List[T] = value.lines.toList.map(m.fromString)
+//    override def toString(value: List[T]): String = ???
 //
-//    override def toString(value: List[T]): String = toStringImpli(value)
-//
-//    override def fromString(value: String): List[T] = fromStringImpli(value)
+//    override def fromString(value: String): List[T] = ???
 //  }
 
   case class Account(owner: String, balance: Double)

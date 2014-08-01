@@ -39,14 +39,13 @@ class PersistedTest extends FunSpec with ShouldMatchers with BeforeAndAfter {
       val persistedAccount = Persisted(path, Account("yy",500.0))
       Persisted.read[Account](path) shouldBe persistedAccount.get
     }
-//    it("can write and read back list of objects"){
-//      import monad.StringPresentableMonad._
-//      val persistedAccounts = Persisted(path, List(Account("xx",200.0), Account("yy", 300.0)))(new ListIsStringPresentable[Account]())
-//      Source.fromFile(path.value).getLines().toList should contain("xx,200.0")
-//      Source.fromFile(path.value).getLines().toList should contain("yy,300.0")
-//      val readValues: List[Account] = Persisted.read[List[Account]](path)
-//      readValues should contain(Account("xx",200.0))
-//      readValues should contain(Account("yy",300.0))
-//    }
+    it("can write and read back list of objects"){
+      val persistedAccounts = Persisted(path, List(Account("xx",200.0), Account("yy", 300.0)))
+      Source.fromFile(path.value).getLines().toList should contain("xx,200.0")
+      Source.fromFile(path.value).getLines().toList should contain("yy,300.0")
+      val readValues: List[Account] = Persisted.readList[Account](path)
+      readValues should contain(Account("xx",200.0))
+      readValues should contain(Account("yy",300.0))
+    }
   }
 }
