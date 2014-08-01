@@ -16,9 +16,9 @@ object StringPresentable {
 
 //  implicit object ListIsStringPresentable[T] extends StringPresentable[List[T]] {
 //
-//    override def toString(value: List[T]): String = ???
+//    override def toString(value: List[T])(implicit m: StringPresentable[T]): String = ???
 //
-//    override def fromString(value: String): List[T] = ???
+//    override def fromString(value: String)(implicit m: StringPresentable[T]): List[T] = ???
 //  }
 
   case class Account(owner: String, balance: Double)
