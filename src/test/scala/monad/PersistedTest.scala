@@ -1,13 +1,18 @@
 package monad
 
 import java.io.File
+
+import monad.StringPresentableMonad.Account
 import org.scalatest.{BeforeAndAfter, FunSpec, ShouldMatchers}
+
 import scala.io.Source
 
 class PersistedTest extends FunSpec with ShouldMatchers with BeforeAndAfter {
 
   val path = FilePath("/Users/twer/temp/test.txt")
   val content = "hello,world\n"
+
+
 
   before {
     new File(path.value).delete()
@@ -26,5 +31,22 @@ class PersistedTest extends FunSpec with ShouldMatchers with BeforeAndAfter {
       Source.fromFile(path.value).getLines().toList should not contain "hello,world"
       Source.fromFile(path.value).getLines().toList should contain("HELLO,WORLD")
     }
+    it("can persist any type T, as long as T is StringPresentable") {
+      val persistedAccount = Persisted(path, Account("yy",500.0))
+      Source.fromFile(path.value).getLines().toList should contain("yy,500.0")
+    }
+    it("can read back object from file"){
+      val persistedAccount = Persisted(path, Account("yy",500.0))
+      Persisted.read[Account](path) shouldBe persistedAccount.get
+    }
+//    it("can write and read back list of objects"){
+//      import monad.StringPresentableMonad._
+//      val persistedAccounts = Persisted(path, List(Account("xx",200.0), Account("yy", 300.0)))(new ListIsStringPresentable[Account]())
+//      Source.fromFile(path.value).getLines().toList should contain("xx,200.0")
+//      Source.fromFile(path.value).getLines().toList should contain("yy,300.0")
+//      val readValues: List[Account] = Persisted.read[List[Account]](path)
+//      readValues should contain(Account("xx",200.0))
+//      readValues should contain(Account("yy",300.0))
+//    }
   }
 }
