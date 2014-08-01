@@ -9,12 +9,14 @@ import scala.io.Source
 
 class PersistedTest extends FunSpec with ShouldMatchers with BeforeAndAfter {
 
-  val path = FilePath("/Users/twer/temp/test.txt")
+  val path = FilePath("./temp/test.txt")
   val content = "hello,world\n"
 
-
-
   before {
+    val tempDir = new File("./temp")
+    if(!tempDir.exists() || !tempDir.isDirectory){
+      tempDir.mkdir()
+    }
     new File(path.value).delete()
   }
 
