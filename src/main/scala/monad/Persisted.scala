@@ -4,7 +4,7 @@ import monad.StringPresentable.StringPresentable
 
 import scala.io.Source
 
-case class FilePath(value: String)
+case class FilePath(value: String) extends AnyVal
 
 trait Persisted[A] {
   def path: FilePath
