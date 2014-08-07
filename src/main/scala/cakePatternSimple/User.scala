@@ -1,3 +1,3 @@
 package cakePatternSimple
 
-case class User
+case class User(name: String)
