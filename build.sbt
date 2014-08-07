@@ -10,7 +10,7 @@ version := "0.0.1"
 organization := "com.github.notyy"
 
 // set the Scala version used for the project
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.2"
 
 resolvers ++= Seq(
   "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
@@ -18,14 +18,14 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.11.3" % "test,it,ft",
+  "org.scalacheck" %% "scalacheck" % "1.11.5" % "test,it,ft",
   "org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
-  "org.scalatest" % "scalatest_2.10" % "2.1.0" % "test,it,ft",
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test,it,ft",
   "org.slf4j" % "slf4j-api" % "1.7.7",
   "com.storm-enroute" %% "scalameter" % "0.6" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.2",
   "junit" % "junit" % "4.11" % "test",
-  "com.h2database" % "h2" % "1.3.148",
+  "com.h2database" % "h2" % "1.3.176",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
