@@ -1,8 +1,6 @@
-sbtTemplate
-===========
+# sbtTemplate
 
-
-scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件
+*** scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件 ***
 
 * 运行sbt test会编译并运行自动化单元测试
 * 运行sbt it:test运行src/it/scala下的集成测试
@@ -12,8 +10,9 @@ scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclips
 * 注意，idea13支持直接导入sbt项目（用idea打开build.sbt文件），因此去掉了sbt-idea插件
 * 注意，idea默认不认识新加入的src/it和src/ft目录，需要手动将其中的子目录设置为测试代码路径
 
-release note
-----------------------
+## release note
+
+2014.08.15 在build.properties里指定sbt为1.3.5
 
 2014.08.07  升级到scala2.11.2，相应的升级了第三方库，同时添加了大量代码例子
              
