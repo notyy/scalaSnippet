@@ -1,4 +1,4 @@
-package Option
+package option
 
 object OptionModule {
   case class User(name: String, age: Int)
