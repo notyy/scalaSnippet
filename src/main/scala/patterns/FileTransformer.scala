@@ -1,15 +1,25 @@
 package patterns
 
+import java.io.{FileWriter, BufferedWriter, File}
+
+import scala.io.Source
+
 case class Path(value: String) extends AnyVal
 
-trait FileTransformer {
-  def save(path: Path, content: String): Unit = ???
+class FileTransformer extends WriteSupport with ReadSupport{
+  def toUpperCase(path: Path): Unit = {
+    val content = read(path)
+    withWriter(path){ w =>
+      w.write(content.toUpperCase)
+    }
+  }
 
-  def load(path: Path): String = ???
+  def toLowerCase(path: Path): Unit = {
+    val content = read(path)
+    withWriter(path){ w =>
+      w.write(content.toLowerCase)
+    }
+  }
 
-  def toUpperCase(path: Path): Unit = ???
-
-  def toLowerCase(path: Path): Unit = ???
-
-  def separate(path: Path, separator: String): Unit = ???
+  //  def separate(path: Path, separator: String): Unit = ???
 }
