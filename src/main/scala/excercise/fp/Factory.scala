@@ -1,8 +1,11 @@
 package excercise.fp
 
+import org.slf4j.LoggerFactory
+
 import scala.io.Source
 
 object Factory {
+  val logger = LoggerFactory.getLogger(Factory.getClass)
 
   case class FileName(value: String) extends AnyVal
 

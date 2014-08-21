@@ -3,10 +3,13 @@ package excercise.fp
 import excercise.fp.Factory._
 import org.scalatest.tags.Slow
 import org.scalatest.{FunSpec, ShouldMatchers}
+import org.slf4j.LoggerFactory
 import tags.Tags.{FastTest, DbTest}
 
 @Slow
-class FactorySpec extends FunSpec with ShouldMatchers{
+class FactorySpec extends FunSpec with ShouldMatchers {
+  val logger = LoggerFactory.getLogger(this.getClass)
+
   describe("object Factory defines many functions") {
     describe("createPlan") {
       it("should create order processing plan" +
@@ -62,7 +65,7 @@ class FactorySpec extends FunSpec with ShouldMatchers{
           zteTArranged(4).products shouldBe List(Product("zteT"))
 
           val zteWArranged = arrangeProduction(zteTArranged)(Product("zteW"))
-          zteWArranged.foreach(println)
+          zteWArranged.foreach(x => logger.info(x.toString))
           zteWArranged(0).products shouldBe List(Product("zteT"))
           zteWArranged(1).products shouldBe List(Product("zteW"))
           zteWArranged(2).products shouldBe List(Product("zteT"), Product("zteW"))
@@ -81,7 +84,7 @@ class FactorySpec extends FunSpec with ShouldMatchers{
             WorkProcess(Machine(PMachine, 1), List(Product("zteT"), Product("zteW"))),
             WorkProcess(Machine(RMachine, 1), List(Product("zteT"), Product("zteW"))))
           val plan = Plan(1, workProcess)
-          println(formatShowPlan(plan))
+          logger.warn(formatShowPlan(plan))
         }
       }
     }
