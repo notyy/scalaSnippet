@@ -11,6 +11,7 @@
 * ___注意___，idea默认不认识新加入的src/it和src/ft目录，需要手动将其中的子目录设置为测试代码路径
 
 ## release note
+2014.08.21 发现logback配置错误，现已改正
 
 2014.08.15 在build.properties里指定sbt为1.3.5
 
