@@ -1,5 +1,7 @@
-package sample
+package ft.sample
+
 import org.scalatest.{Matchers, FeatureSpec, GivenWhenThen}
+import sample.Account
 
 class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
   feature("Account can be created,checked,and transfer with each other") {

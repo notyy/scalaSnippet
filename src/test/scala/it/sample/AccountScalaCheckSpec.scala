@@ -1,7 +1,8 @@
-package sample
+package it.sample
 
-import org.scalatest.{Matchers, FeatureSpec, GivenWhenThen}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
+import sample.Account
 
 class AccountScalaCheckSpec extends FeatureSpec with GivenWhenThen with Matchers with GeneratorDrivenPropertyChecks {
   feature("Account can be created,checked,and transfer with each other") {

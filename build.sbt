@@ -18,9 +18,9 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.11.5" % "test,it,ft",
-  "org.pegdown" % "pegdown" % "1.0.2" % "test,it,ft", //used in html report
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test,it,ft",
+  "org.scalacheck" %% "scalacheck" % "1.11.5" % "test",
+  "org.pegdown" % "pegdown" % "1.0.2" % "test", //used in html report
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.slf4j" % "slf4j-api" % "1.7.7",
   "com.storm-enroute" %% "scalameter" % "0.6" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.2",
@@ -128,11 +128,6 @@ jacoco.settings
 //   Tests from other projects may still run concurrently.
 parallelExecution in Test := false
 
-parallelExecution in IntegrationTest := false
-
-parallelExecution in FuncTest := false
-
-
 // create beautiful scala test report
 testOptions in Test ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-h","target/html-unit-test-report"),
@@ -145,15 +140,3 @@ testOptions in jacoco.Config ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-u","target/unit-test-reports"),
   Tests.Argument(TestFrameworks.ScalaTest,"-o")
 )
-
-//testOptions in IntegrationTest ++= Seq(
-//  Tests.Argument("-h","target/html-integration-test-report"),
-//  Tests.Argument("-u","target/integration-test-reports"),
-//  Tests.Argument("-o")
-//)
-//
-//testOptions in FuncTest ++= Seq(
-//  Tests.Argument("-h","target/html-function-test-report"),
-//  Tests.Argument("-u","target/function-test-reports"),
-//  Tests.Argument("-o")
-//)
