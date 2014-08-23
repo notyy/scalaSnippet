@@ -29,7 +29,7 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
+//testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
 
 logBuffered := false
 
@@ -132,11 +132,13 @@ parallelExecution in Test := false
 testOptions in Test ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-h","target/html-unit-test-report"),
   Tests.Argument(TestFrameworks.ScalaTest,"-u","target/unit-test-reports"),
-  Tests.Argument(TestFrameworks.ScalaTest,"-o")
+  Tests.Argument(TestFrameworks.ScalaTest,"-o"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-l","FunctionTest")
 )
 
 testOptions in jacoco.Config ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-h","target/html-unit-test-report"),
   Tests.Argument(TestFrameworks.ScalaTest,"-u","target/unit-test-reports"),
-  Tests.Argument(TestFrameworks.ScalaTest,"-o")
+  Tests.Argument(TestFrameworks.ScalaTest,"-o"),
+  Tests.Argument(TestFrameworks.ScalaTest,"-l","FunctionTest")
 )

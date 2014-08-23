@@ -2,6 +2,7 @@ package ft.sample
 
 import org.scalatest.{Matchers, FeatureSpec, GivenWhenThen}
 import sample.Account
+import tags.Tags.FunctionTest
 
 class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
   feature("Account can be created,checked,and transfer with each other") {
@@ -10,7 +11,7 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
     info("to ensure the stable and accurate of whole accounting system")
 
     scenario("Account can be created,Account must have owner and initialization amount must be > 0")(pending)
-    scenario("money can transfer between accounts") {
+    scenario("money can transfer between accounts",FunctionTest) {
       Given("Account A,amount 100")
       val accountA = new Account("A", 100.00)
       And("Account B,amount 50")
