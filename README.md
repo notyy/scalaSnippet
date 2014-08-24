@@ -3,14 +3,15 @@
 ***scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件***
 
 * 运行sbt test会编译并运行自动化单元测试
-* 运行sbt it:test运行src/it/scala下的集成测试
-* 运行sbt it:test运行src/ft/scala下的功能测试
+* sbt test-only -- -n FunctionTest 可运行打了FunctionTest tag的测试
 * 自动化测试生成的报告文件可在target/html-(test|it|ft)-report下打开index.html查看
 
 * ___注意___，idea13支持直接导入sbt项目（用idea打开build.sbt文件），因此去掉了sbt-idea插件
 * ___注意___，idea默认不认识新加入的src/it和src/ft目录，需要手动将其中的子目录设置为测试代码路径
 
 ## release note
+2014.08.24 配置了FunctionTest tag，作为用tag来区分测试的例子
+
 2014.08.21 发现logback配置错误，现已改正
 
 2014.08.15 在build.properties里指定sbt为1.3.5
