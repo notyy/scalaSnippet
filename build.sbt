@@ -29,16 +29,10 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-/*
-   TODO reopen it later
- */
+//   TODO reopen it later
 //testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
 
 logBuffered := false
-
-val helloTask = TaskKey[Unit]("hello", "Print hello")
-
-helloTask := println("hello world")
 
 // reduce the maximum number of errors shown by the Scala compiler
 maxErrors := 20
