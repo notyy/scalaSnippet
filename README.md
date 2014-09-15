@@ -6,10 +6,9 @@
 * sbt test-only -- -n FunctionTest 可运行打了FunctionTest tag的测试
 * 自动化测试生成的报告文件可在target/html-(test|it|ft)-report下打开index.html查看
 
-* ___注意___，idea13支持直接导入sbt项目（用idea打开build.sbt文件），因此去掉了sbt-idea插件
-* ___注意___，idea默认不认识新加入的src/it和src/ft目录，需要手动将其中的子目录设置为测试代码路径
-
 ## release note
+2014.09.15 intellij的scala插件自动导入的sbt工程还是有种种问题，因此还是恢复了gen-idea插件,另外，删除了it和ft目录，还是用tag来区分吧
+
 2014.08.24 配置了FunctionTest tag，作为用tag来区分测试的例子
 
 2014.08.21 发现logback配置错误，现已改正
