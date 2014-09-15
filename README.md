@@ -1,4 +1,4 @@
-# sbtTemplate
+# sbtTemplate  [ ![Codeship Status for notyy/sbtTemplate](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
 
 ***scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件***
 
