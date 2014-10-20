@@ -16,6 +16,10 @@
         <appender-ref ref="FILE" />
     </logger>
 
+    <logger name="concurrency" level="INFO">
+        <appender-ref ref="FILE" />
+    </logger>
+
     <root level="WARN">
         <appender-ref ref="STDOUT" />
     </root>
