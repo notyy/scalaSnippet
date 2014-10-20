@@ -24,6 +24,7 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-api" % "1.7.7",
   "com.storm-enroute" %% "scalameter" % "0.6" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.2",
+  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "junit" % "junit" % "4.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
@@ -45,6 +46,8 @@ javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
 
 // append -deprecation to the options passed to the Scala compiler
 scalacOptions += "-deprecation"
+
+incOptions := incOptions.value.withNameHashing(true)
 
 // set the initial commands when entering 'console' only
 // initialCommands in console := "import com.kaopua.recall._"
