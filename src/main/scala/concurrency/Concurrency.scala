@@ -1,4 +1,4 @@
-package concurrentcy
+package concurrency
 
 object Concurrency {
   def sum(xs: List[Int]): Int = xs match {
