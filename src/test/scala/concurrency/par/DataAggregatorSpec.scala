@@ -5,10 +5,9 @@ import org.scalatest.{ShouldMatchers, FunSpec}
 class DataAggregatorSpec extends FunSpec with ShouldMatchers {
   describe("DataAggregatorSpec") {
     it("can bind order amount and customer name") {
-      object dataAggregator extends DataAggregator with CustomerDataProvider with OrderDataSelector {
-        override val customerData: Set[(CustomerId, Name)] = Set("1" -> "xx", "2" -> "yy", "3" -> "zz")
-
-        override val orderData: Set[(CustomerId, OrderAmount)] = Set("1" -> 30, "1" -> 50, "2" -> 10, "3" -> 100)
+      val dataAggregator = new Object with DataAggregator with MockCustomerRepository with MockOrderRepository {
+        val customerData: Set[(CustomerId, Name)] = Set("1" -> "xx", "2" -> "yy", "3" -> "zz")
+        val orderData: Set[(CustomerId, OrderAmount)] = Set("1" -> 30, "1" -> 50, "2" -> 10, "3" -> 100)
       }
 
       val rs = dataAggregator.aggregate(_ > 10)
