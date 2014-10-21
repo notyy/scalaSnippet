@@ -7,6 +7,8 @@
 * 自动化测试生成的报告文件可在target/html-(test|it|ft)-report下打开index.html查看
 
 ## release note
+2014.10.21 增加了例子展示怎么使用par集合
+
 2014.09.15 intellij的scala插件自动导入的sbt工程还是有种种问题，因此还是恢复了gen-idea插件,另外，删除了it和ft目录，还是用tag来区分吧
 
 2014.08.24 配置了FunctionTest tag，作为用tag来区分测试的例子
