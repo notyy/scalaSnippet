@@ -27,7 +27,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "junit" % "junit" % "4.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
-  "org.mockito" % "mockito-all" % "1.9.5" % "test"
+  "org.mockito" % "mockito-all" % "1.9.5" % "test",
+  "com.typesafe.akka" %% "akka-actor" % "2.3.6"
 )
 
 //   TODO reopen it later
