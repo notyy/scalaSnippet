@@ -28,7 +28,9 @@ libraryDependencies ++= Seq(
   "junit" % "junit" % "4.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
   "org.mockito" % "mockito-all" % "1.9.5" % "test",
-  "com.typesafe.akka" %% "akka-actor" % "2.3.6"
+  "com.typesafe.akka" %% "akka-actor" % "2.3.6",
+  "com.googlecode.scalascriptengine" %% "scalascriptengine" % "1.3.10",
+  "org.scala-lang" % "scala-compiler" % "2.11.2"
 )
 
 //   TODO reopen it later
