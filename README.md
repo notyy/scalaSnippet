@@ -1,12 +1,13 @@
-# sbtTemplate  [ ![Codeship Status for notyy/sbtTemplate](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
+# scalaSnippet  [ ![Codeship Status for notyy/sbtTemplate](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
 
-***scala sbt工程模板，配置了单元测试scaltest,日志引擎logback,eclipse项目生成等插件***
+***scala各种代码片段，是我在培训和指导scala开发的过程中提取而来***
 
 * 运行sbt test会编译并运行自动化单元测试
 * sbt test-only -- -n FunctionTest 可运行打了FunctionTest tag的测试
-* 自动化测试生成的报告文件可在target/html-(test|it|ft)-report下打开index.html查看
 
 ## release note
+2014.11.02 工程改名为scalaSnippet，我将另外弄一个giter8格式的工程模板
+
 2014.10.21 增加了例子展示怎么使用par集合
 
 2014.09.15 intellij的scala插件自动导入的sbt工程还是有种种问题，因此还是恢复了gen-idea插件,另外，删除了it和ft目录，还是用tag来区分吧
