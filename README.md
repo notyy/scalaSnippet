@@ -1,4 +1,4 @@
-# scalaSnippet  [ ![Codeship Status for notyy/sbtTemplate](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
+# scalaSnippet  ![Codeship Status for notyy/snippet](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
 
 ***scala各种代码片段，是我在培训和指导scala开发的过程中提取而来***
 
