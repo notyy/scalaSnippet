@@ -1,8 +1,6 @@
 package loanPattern
 
-import java.io.{Reader, FileReader, BufferedReader}
-
-import scala.io.Source
+import java.io.{BufferedReader, FileReader}
 
 object SampleTxtProcessor {
   def countLines(fileName: String): Int = {
@@ -15,8 +13,8 @@ object SampleTxtProcessor {
         count += 1
       }
       count
-    }finally{
-      if(reader != null){
+    } finally {
+      if (reader != null) {
         reader.close()
       }
     }
