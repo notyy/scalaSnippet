@@ -24,11 +24,13 @@ class AccountScalaCheckSpec extends FeatureSpec with GivenWhenThen with Matchers
             && transferAmount <= balanceA && transferAmount >= 0.00) {
             val accountA = new Account("A", balanceA)
             val accountB = new Account("B", balanceB)
+            val (oldA, oldB) = (accountA.balance, accountB.balance)
             Account.transfer(accountA, accountB, transferAmount)
             accountA.balance should be (balanceA - transferAmount)
             accountB.balance should be (balanceB + transferAmount)
             accountA.balance should be >= 0.00
             accountB.balance should be >= 0.00
+            (accountA.balance + accountB.balance) shouldBe (oldA + oldB)
           }
       }
     }
