@@ -3,7 +3,7 @@ package utils
 import scala.io._
 import java.io._
 
-object Combinators {
+object Combinator {
   type Line = String
 
   def doOver(inputFile: String, outputFile: String)(f: Line => Line): Unit = {

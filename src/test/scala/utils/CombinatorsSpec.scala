@@ -4,7 +4,7 @@ import java.io.PrintWriter
 
 import org.scalatest.{BeforeAndAfter, ShouldMatchers, FunSpec}
 import patterns.{Path, ReadSupport}
-import Combinators._
+import Combinator._
 import java.io._
 
 class CombinatorsSpec extends FunSpec with ShouldMatchers with BeforeAndAfter with ReadSupport {
