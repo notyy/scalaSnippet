@@ -7,6 +7,8 @@ name := "scalaSnippet"
 
 version := "0.0.1"
 
+isSnapshot := true
+
 organization := "com.github.notyy"
 
 // set the Scala version used for the project
