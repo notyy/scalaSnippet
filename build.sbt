@@ -12,7 +12,7 @@ isSnapshot := true
 organization := "com.github.notyy"
 
 // set the Scala version used for the project
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.4"
 
 resolvers ++= Seq(
   "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
