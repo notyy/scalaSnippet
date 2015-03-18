@@ -1,6 +1,9 @@
-# scalaSnippet  [ ![Codeship Status for notyy/snippet](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
+# scalaSnippet
+[ ![Codeship Status for notyy/snippet](https://codeship.io/projects/6547f7b0-1ee8-0132-7537-727422619b42/status)](https://codeship.io/projects/35587)
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/notyy/scalaSnippet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Codacy Badge](https://www.codacy.com/project/badge/086946f1190144f6b854ebc82e9b2c93)](https://www.codacy.com/public/notyycn/scalaSnippet)
 
 ***scala各种代码片段，是我在培训和指导scala开发的过程中提取而来***
 
