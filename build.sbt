@@ -2,7 +2,12 @@ import de.johoop.jacoco4sbt._
 import JacocoPlugin._
 import sbt._
 
+//com.twitter.scrooge.ScroogeSBT.newSettings
+//
+//scroogeBuildOptions in Compile := Seq("--finagle", "--verbose")
 // set the name of the project
+
+
 name := "scalaSnippet"
 
 version := "0.0.1"
@@ -12,7 +17,7 @@ isSnapshot := true
 organization := "com.github.notyy"
 
 // set the Scala version used for the project
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.7"
 
 resolvers ++= Seq(
   "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
@@ -29,10 +34,16 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "junit" % "junit" % "4.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
-  "org.mockito" % "mockito-all" % "1.9.5" % "test",
+  "org.mockito" % "mockito-all" % "1.9.5" % "test,provided",
   "com.typesafe.akka" %% "akka-actor" % "2.3.6",
   "com.googlecode.scalascriptengine" %% "scalascriptengine" % "1.3.10",
-  "org.scala-lang" % "scala-compiler" % "2.11.2"
+  "org.scala-lang" % "scala-compiler" % "2.11.2",
+  "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test",
+  "com.twitter" %% "finagle-httpx" % "6.29.0",
+//  "com.twitter" %% "scrooge-core" % "3.3.2",
+  "org.apache.thrift" % "libthrift" % "0.9.3",
+  "com.twitter" %% "scrooge-core" % "4.2.0",
+  "com.twitter" %% "finagle-thrift" % "6.30.0"
 )
 
 //   TODO reopen it later
@@ -147,3 +158,5 @@ testOptions in jacoco.Config ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-o"),
   Tests.Argument(TestFrameworks.ScalaTest,"-l","FunctionTest")
 )
+
+packAutoSettings
