@@ -9,7 +9,7 @@ import java.io._
 
 class CombinatorsSpec extends FunSpec with ShouldMatchers with BeforeAndAfter with ReadSupport {
   val input = "src/test/resources/doOverSample.txt"
-  val output = "src/test/resources/doOverSampleOut.txt"
+  val output = "tmp/doOverSampleOut.txt"
   
   before{
     val file = new File(output)
