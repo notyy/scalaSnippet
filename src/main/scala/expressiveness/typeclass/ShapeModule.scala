@@ -6,7 +6,7 @@ object ShapeModule {
   case class Square(side: Double) extends Shape
   case class Circle(radius: Double) extends Shape
 
-  trait HaveArea[T <: Shape]{
+  trait HaveArea[T]{
     def area(shape: T): Double
   }
 
@@ -17,7 +17,7 @@ object ShapeModule {
     override def area(circle: Circle): Double = 3.14 * circle.radius * circle.radius
   }
 
-  trait HavePerimeter[T <: Shape]{
+  trait HavePerimeter[T]{
     def perimeter(shape: T): Double
   }
 
