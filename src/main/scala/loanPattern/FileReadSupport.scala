@@ -15,4 +15,10 @@ trait FileReadSupport {
       }
     }
   }
+
+  withReader("/tmp/test.txt"){ bf =>
+    val fstLine = bf.readLine()
+    println(fstLine)
+  }
+
 }
