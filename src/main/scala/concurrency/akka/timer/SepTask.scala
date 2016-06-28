@@ -46,5 +46,5 @@ object SepTaskSample extends App with StrictLogging {
   Thread.sleep(3000)
   sepTask ! PoisonPill
   Thread.sleep(1000)
-  system.shutdown()
+  system.terminate()
 }

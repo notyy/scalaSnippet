@@ -16,5 +16,5 @@ object AccountApp extends App with StrictLogging {
   agent1 ! Report
   agent1 ! PoisonPill
   Thread.sleep(1000)
-  system.shutdown()
+  system.terminate()
 }

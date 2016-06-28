@@ -10,5 +10,5 @@ object PingPangRoom extends App with StrictLogging {
   ping ! Start(pang)
   logger.info("watching")
   Thread.sleep(2000)
-  system.shutdown()
+  system.terminate()
 }
