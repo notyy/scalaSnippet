@@ -22,6 +22,8 @@ class L2Source[T] extends Source[T]{
     buffer = buffer.tail
     rs
   }
+
+  override def isComplete: Boolean = buffer.isEmpty
 }
 
 object L2Source {
