@@ -1,0 +1,5 @@
+package reactiveComponent
+
+object Platform {
+
+}
