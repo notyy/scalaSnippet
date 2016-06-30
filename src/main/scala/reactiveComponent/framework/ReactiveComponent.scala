@@ -2,27 +2,27 @@ package reactiveComponent.framework
 
 import scala.concurrent.Future
 
-trait ReactiveComponent[Input, Output]
+trait ReactiveComponent[A, B]
 
-trait SimpleTransformation[Input, Output] extends ReactiveComponent[Input, Output] {
+trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] {
   that =>
 
-  def update(input: Input): Output
+  def update(A: A): B
 
-  def conn[Output1](nextSimpleTrans: SimpleTransformation[Output, Output1]): SimpleTransformation[Input, Output1] = {
+  def conn[C](nextSimpleTrans: SimpleTransformation[B, C]): SimpleTransformation[A, C] = {
 
-    new SimpleTransformation[Input, Output1] {
-      override def update(input: Input): Output1 = {
-        val output: Output = that.update(input)
-        nextSimpleTrans.update(output)
+    new SimpleTransformation[A, C] {
+      override def update(A: A): C = {
+        val B: B = that.update(A)
+        nextSimpleTrans.update(B)
       }
     }
   }
 }
 
-trait StatefulComponent[Input, Model, Output] extends ReactiveComponent[Input, Output] {
+trait StatefulComponent[A, Model, B] extends ReactiveComponent[A, B] {
   def init: Model
 
-  def update(input: Input, model: Model): (Model, Option[Future[Input]], Output)
+  def update(A: A, model: Model): (Model, Option[Future[A]], B)
 }
 
