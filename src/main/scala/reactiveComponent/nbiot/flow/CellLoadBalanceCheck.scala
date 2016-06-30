@@ -1,29 +1,25 @@
 package reactiveComponent.nbiot.flow
 
-import reactiveComponent.framework.StatefulComponent
-import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.{CheckResult, Model}
+import reactiveComponent.framework.SimpleTransformation
+import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.{CellUECount, CheckResult}
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
 
-import scala.concurrent.Future
+class CellLoadBalanceCheck extends SimpleTransformation[(UL_CCCH_MSG, CellUECount), CheckResult] {
 
-class CellLoadBalanceCheck extends StatefulComponent[UL_CCCH_MSG, Model, CheckResult] {
-  override def init: Model = Model(Map.empty[CellId, Int])
-
-  override def update(input: UL_CCCH_MSG, model: Model): (Model, Option[Future[UL_CCCH_MSG]], CheckResult) = {
-    val newCount = model.cellRRCCount.getOrElse(input.cellId, 0)
-    if (newCount > CellLoadBalanceCheck.MAX_RCC_PER_CELL) {
-      (model, None, CheckResult(input, allow = false))
-    } else {
-      (Model(model.cellRRCCount.updated(input.cellId, newCount + 1)), None, CheckResult(input, allow = true))
-    }
+  override def update(input: (UL_CCCH_MSG, CellUECount)): CheckResult = input match {
+    case (msg, CellUECount(count)) if count > CellLoadBalanceCheck.MAX_RCC_PER_CELL => CheckResult(msg, allow = false)
+    case (msg, _) => CheckResult(msg, allow = true)
   }
 }
+
 
 object CellLoadBalanceCheck {
   val MAX_RCC_PER_CELL = 5
 
   case class CheckResult(ul_ccch_msg: UL_CCCH_MSG, allow: Boolean)
 
-  case class Model(cellRRCCount: Map[CellId, Int])
+  case class CellUECount(value: Int) extends AnyVal
+
+  case class Output()
 
 }
