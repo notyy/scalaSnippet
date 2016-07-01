@@ -12,7 +12,7 @@ trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] {
 
 trait StatefulComponent[Model, A, B] extends ReactiveComponent[A, B] {
 
-  def update(model: Model, A: A): (Model, Option[Future[A]], Option[B])
+  def update(model: Model, input: A): (Model, Option[Future[A]], Option[B])
 
   def run(initModel: Model, input: A): Future[B] = {
     runIt(initModel, input)
