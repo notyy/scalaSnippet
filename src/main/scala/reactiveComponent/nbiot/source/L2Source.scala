@@ -1,10 +1,10 @@
 package reactiveComponent.nbiot.source
 
 import reactiveComponent.framework.Source
-import reactiveComponent.nbiot.flow.CellId
+import reactiveComponent.nbiot.flow.{CellId, UeId}
 
 trait L2Message
-case class UL_CCCH_MSG(content: String, cellId: CellId) extends L2Message
+case class UL_CCCH_MSG(content: String, cellId: CellId, ueId: UeId ) extends L2Message
 
 class L2Source[T] extends Source[T]{
 
