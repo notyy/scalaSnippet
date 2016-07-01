@@ -8,8 +8,8 @@ import akka.stream._
 import akka.stream.scaladsl._
 import akka.util.ByteString
 
-import scala.concurrent.Future
-
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 
 object Factorials extends App {
 
@@ -27,6 +27,8 @@ object Factorials extends App {
       .toMat(FileIO.toPath(Paths.get(fileName)))(Keep.right)
   }
 
-  factorials.map(_.toString)
-    .runWith(lineSink("temp/factorials2.txt"))
+  Await.ready(factorials.map(_.toString)
+    .runWith(lineSink("temp/factorials2.txt")), 3 second)
+
+  system.terminate()
 }
