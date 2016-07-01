@@ -13,7 +13,7 @@ object Platform {
     flow.runThrough(input)
   }
 
-  def run[Model,A,B](statefulComponent: StatefulComponent[Model, A,B])(input: A, model: Model): Future[B] = {
+  def run[Model,A,B]( statefulComponent: => StatefulComponent[Model, A,B])(input: A, model: Model): Future[B] = {
     statefulComponent.run(model, input)
   }
 }
