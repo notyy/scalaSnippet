@@ -4,15 +4,19 @@ import reactiveComponent.framework.SimpleTransformation
 import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.{CellUECount, CheckResult}
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class CellLoadBalanceCheck extends SimpleTransformation[(UL_CCCH_MSG, CellUECount), CheckResult] {
 
-  override def update(input: (UL_CCCH_MSG, CellUECount)): Future[CheckResult] = input match {
-    case (msg, CellUECount(count)) if count > CellLoadBalanceCheck.MAX_RCC_PER_CELL => Future(CheckResult(msg, allow = false))
-    case (msg, _) => Future(CheckResult(msg, allow = true))
+  override def doUpdate(input: (UL_CCCH_MSG, CellUECount)): Future[CheckResult] = {
+    input match {
+      case (msg, CellUECount(count)) if count > CellLoadBalanceCheck.MAX_RCC_PER_CELL => Future(CheckResult(msg, allow = false))
+      case (msg, _) => Future(CheckResult(msg, allow = true))
+    }
   }
+
+  override def processName: String = "CellLoadBalanceCheck"
 }
 
 

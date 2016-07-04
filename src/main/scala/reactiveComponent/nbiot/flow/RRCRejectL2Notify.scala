@@ -6,7 +6,7 @@ import reactiveComponent.nbiot.flow.RRCRejectL2Notify._
 import scala.concurrent.Future
 
 class RRCRejectL2Notify(val rejectNotify: RRCConnReject => Future[RRCRejectL2Notify.L2Timeout]) extends StatefulComponent[Model, Input, Boolean] {
-  override def update(model: Model, input: Input): (Model, Result[Input, Boolean]) = input match {
+  override def doUpdate(model: Model, input: Input): (Model, Result[Input, Boolean]) = input match {
     case Reject(ueId) => {
       (model, FutureAction(rejectNotify(RRCConnReject(ueId))))
     }
@@ -14,6 +14,8 @@ class RRCRejectL2Notify(val rejectNotify: RRCConnReject => Future[RRCRejectL2Not
       (model, Output(true))
     }
   }
+
+  override def processName: String = "RRCRejectL2Notify"
 }
 
 object RRCRejectL2Notify {

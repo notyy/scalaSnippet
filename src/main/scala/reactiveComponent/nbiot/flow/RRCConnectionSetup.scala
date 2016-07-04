@@ -1,5 +1,6 @@
 package reactiveComponent.nbiot.flow
 
+import com.typesafe.scalalogging.slf4j.StrictLogging
 import reactiveComponent.Platform
 import reactiveComponent.framework.SimpleTransformation
 import reactiveComponent.nbiot.dependency.L2Service
@@ -10,8 +11,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount), Boolean] {
-  override def update(input: (UL_CCCH_MSG, CellUECount)): Future[Boolean] = {
-    val cellLoadBalanceCheck: CellLoadBalanceCheck = new CellLoadBalanceCheck()
+  override def doUpdate(input: (UL_CCCH_MSG, CellUECount)): Future[Boolean] = {
     val rRCRejectL2Notify: RRCRejectL2Notify = new RRCRejectL2Notify(L2Service.rejectNotify)
     val rRCLocalRelease: RRCLocalRelease = new RRCLocalRelease()
 
@@ -20,7 +20,7 @@ class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount)
     val ueId = uL_CCCH_MSG.ueId
     val cellId = uL_CCCH_MSG.cellId
 
-    Platform.run(cellLoadBalanceCheck)(input).flatMap { checkResult =>
+    Platform.run(new CellLoadBalanceCheck())(input).flatMap { checkResult =>
       if (checkResult.allow) {
         Platform.run(new RRCInstanceSetup)(uL_CCCH_MSG).flatMap { rBSetupReq: RBSetup.RBSetupReq =>
           Platform.run(new RBSetup)(rBSetupReq, RBSetup.Model(ueId, cellId))
@@ -31,4 +31,6 @@ class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount)
       }
     }
   }
+
+  override def processName: String = "RRCConnectionSetup"
 }
