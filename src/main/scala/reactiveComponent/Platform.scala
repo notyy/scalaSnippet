@@ -5,11 +5,11 @@ import reactiveComponent.framework.{Flow, SimpleTransformation, StatefulComponen
 import scala.concurrent.Future
 
 object Platform {
-  def run[A, B](simpleTransformation: SimpleTransformation[A, B])(input: A): B = {
+  def run[A, B](simpleTransformation: SimpleTransformation[A, B])(input: A): Future[B] = {
     simpleTransformation.update(input)
   }
 
-  def run[A, B](flow: Flow[A, B], input: A): B = {
+  def run[A, B](flow: Flow[A, B], input: A): Future[B] = {
     flow.runThrough(input)
   }
 

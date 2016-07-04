@@ -7,7 +7,7 @@ trait ReactiveComponent[A, B]
 
 trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] {
 
-  def update(input: A): B
+  def update(input: A): Future[B]
 }
 
 trait Result[Input, Output]
