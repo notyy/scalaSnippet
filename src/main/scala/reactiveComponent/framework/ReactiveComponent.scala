@@ -38,8 +38,3 @@ trait StatefulComponent[Model, A, B] extends ReactiveComponent[A, B] {
   }
 }
 
-
-object StatefulComponent {
-
-}
-
