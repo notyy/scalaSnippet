@@ -17,13 +17,17 @@ class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount)
 
 
     val (uL_CCCH_MSG, cellUECount) = input
+    val ueId = uL_CCCH_MSG.ueId
+    val cellId = uL_CCCH_MSG.cellId
 
-    Platform.run(cellLoadBalanceCheck)(input).map { checkResult =>
-      if(checkResult.allow) {
-        true
+    Platform.run(cellLoadBalanceCheck)(input).flatMap { checkResult =>
+      if (checkResult.allow) {
+        Platform.run(new RRCInstanceSetup)(uL_CCCH_MSG).flatMap { rBSetupReq: RBSetup.RBSetupReq =>
+          Platform.run(new RBSetup)(rBSetupReq, RBSetup.Model(ueId, cellId))
+        }
       }
       else {
-        false
+        Platform.run(new RRCConnectionReject)(UeIdentity(ueId, cellId))
       }
     }
   }
