@@ -13,7 +13,7 @@ object RBSetup {
   case class Model(ueId: UeId, cellId: CellId)
 
   trait Input
-  case class RBSetupReq(mac: Option[String]) extends Input
+  case class RBSetupReq(mac: Option[Mac]) extends Input
   case class Success()
   case class Failure(reason: String)
 
