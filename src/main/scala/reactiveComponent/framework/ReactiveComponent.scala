@@ -20,7 +20,7 @@ trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] with StrictLogg
   def doUpdate(input: A): Future[B]
 }
 
-trait Result[Input, Output]
+trait Result[FutureInput, Output]
 
 case class FutureAction[A, B](futureAction: Future[A]) extends Result[A, B]
 
