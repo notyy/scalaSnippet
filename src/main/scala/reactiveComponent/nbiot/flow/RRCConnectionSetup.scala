@@ -1,6 +1,5 @@
 package reactiveComponent.nbiot.flow
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
 import reactiveComponent.Platform
 import reactiveComponent.framework.SimpleTransformation
 import reactiveComponent.nbiot.dependency.L2Service
