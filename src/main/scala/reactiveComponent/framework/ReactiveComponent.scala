@@ -2,8 +2,10 @@ package reactiveComponent.framework
 
 import com.typesafe.scalalogging.slf4j.StrictLogging
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+import scala.language.postfixOps
 
 trait ReactiveComponent[A, B] {
   def processName: String
@@ -12,8 +14,8 @@ trait ReactiveComponent[A, B] {
 trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] with StrictLogging {
   def update(input: A): Future[B] = {
     logger.info(s"$processName started, input: $input")
-    val rs = doUpdate(input)
-    logger.info(s"$processName completed")
+    val rs = Await.ready(doUpdate(input), 3 seconds)
+    logger.info(s"$processName completed, result: $rs")
     rs
   }
 
@@ -30,8 +32,8 @@ trait StatefulComponent[Model, A, B] extends ReactiveComponent[A, B] with Strict
 
   def update(model: Model, input: A): Future[(Model, Result[A, B])] = {
     logger.info(s"$processName started, input: $input, model: $model")
-    val rs = doUpdate(model, input)
-    logger.info(s"$processName completed")
+    val rs = Await.ready(doUpdate(model, input), 3 seconds)
+    logger.info(s"$processName completed, result: $rs")
     rs
   }
 

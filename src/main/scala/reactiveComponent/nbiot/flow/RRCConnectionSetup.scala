@@ -2,7 +2,6 @@ package reactiveComponent.nbiot.flow
 
 import reactiveComponent.Platform
 import reactiveComponent.framework.SimpleTransformation
-import reactiveComponent.nbiot.dependency.L2Service
 import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.CellUECount
 import reactiveComponent.nbiot.flow.RRCProcessing.RRCInstance
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
@@ -13,10 +12,6 @@ import scala.util.{Failure, Success, Try}
 
 class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount), Try[RRCInstance]] {
   override def doUpdate(input: (UL_CCCH_MSG, CellUECount)): Future[Try[RRCInstance]] = {
-    val rRCRejectL2Notify: RRCRejectL2Notify = new RRCRejectL2Notify(L2Service.rejectNotify)
-    val rRCLocalRelease: RRCLocalRelease = new RRCLocalRelease()
-
-
     val (uL_CCCH_MSG, cellUECount) = input
     val ueId = uL_CCCH_MSG.ueId
     val cellId = uL_CCCH_MSG.cellId

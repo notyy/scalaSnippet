@@ -9,10 +9,21 @@ import scala.concurrent.Future
 
 class CellLoadBalanceCheck extends SimpleTransformation[(UL_CCCH_MSG, CellUECount), CheckResult] {
 
-  override def doUpdate(input: (UL_CCCH_MSG, CellUECount)): Future[CheckResult] = {
+   override def doUpdate(input: (UL_CCCH_MSG, CellUECount)): Future[CheckResult] = {
+//    logger.info(Future {
+//      CheckResult("xx", allow = true
+//    }))
     input match {
-      case (msg, CellUECount(count)) if count > CellLoadBalanceCheck.MAX_RCC_PER_CELL => Future(CheckResult(msg, allow = false))
-      case (msg, _) => Future(CheckResult(msg, allow = true))
+      case (msg, CellUECount(count)) if count > CellLoadBalanceCheck.MAX_RCC_PER_CELL => {
+        Future {
+          CheckResult(msg, allow = false)
+        }
+      }
+      case (msg, _) => {
+        Future {
+          CheckResult(msg, allow = true)
+        }
+      }
     }
   }
 

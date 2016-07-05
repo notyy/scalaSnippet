@@ -8,7 +8,6 @@ import reactiveComponent.nbiot.source.UL_CCCH_MSG
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-
 import scala.util.{Failure, Success}
 
 class RRCProcessing extends StatefulComponent[Option[RRCInstance], Input, Option[RRCInstance]] {
@@ -19,10 +18,10 @@ class RRCProcessing extends StatefulComponent[Option[RRCInstance], Input, Option
     input match {
       case RRCConnReq(ulccchmsg) => {
         Platform.run(new RRCConnectionSetup)(ulccchmsg, CellUECount(3)).map {
-          case Success(rRCInstance) => (Some(rRCInstance), Output(None))
+          case Success(rRCInstance) => (Some(rRCInstance), Output(Some(rRCInstance))): (Option[RRCInstance], Result[Input, Option[RRCInstance]])
           case Failure(e) => {
             e.printStackTrace()
-            (None, Output(None))
+            (None, Output(None)): (Option[RRCInstance], Result[Input, Option[RRCInstance]])
           }
         }
       }
