@@ -54,7 +54,8 @@ libraryDependencies ++= Seq(
 //  "com.twitter" %% "scrooge-core" % "3.3.2",
   "org.apache.thrift" % "libthrift" % "0.9.3",
   "com.twitter" %% "scrooge-core" % "4.2.0",
-  "com.twitter" %% "finagle-thrift" % "6.30.0"
+  "com.twitter" %% "finagle-thrift" % "6.30.0",
+  "org.json4s" %% "json4s-native" % "3.4.0"
 )
 
 //   TODO reopen it later
