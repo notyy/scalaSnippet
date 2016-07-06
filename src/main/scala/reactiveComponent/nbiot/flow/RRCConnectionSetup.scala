@@ -26,13 +26,6 @@ class RRCConnectionSetup extends SimpleTransformation[(UL_CCCH_MSG, CellUECount)
           map(_ => Failure(new IllegalStateException("exceed cell load capacity")))
       }
     }
-
-    //      .flatMap { rBSetupReq: RBSetup.RBSetupReq =>
-    //        Platform.run(new RBSetup)(rBSetupReq).map {
-    //          case true => Success(RRCInstance(ueId, "some reason", cellId, 0.50))
-    //          case false => Failure(new IllegalStateException("RBSetup return's false"))
-    //        }
-    //      }
     fRRCInstance
   }
 
