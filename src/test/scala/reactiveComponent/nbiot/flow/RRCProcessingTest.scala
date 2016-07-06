@@ -3,7 +3,7 @@ package reactiveComponent.nbiot.flow
 import com.typesafe.scalalogging.slf4j.StrictLogging
 import org.scalatest.{FunSpec, ShouldMatchers}
 import reactiveComponent.Platform
-import reactiveComponent.nbiot.flow.RRCProcessing.RRCConnReq
+import reactiveComponent.nbiot.flow.RRCProcessing.{NasTransport, RRCConnReq}
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
 
 import scala.concurrent.Await
@@ -21,8 +21,14 @@ class RRCProcessingTest extends FunSpec with ShouldMatchers with StrictLogging {
         3 seconds
       )
       logger.info(s"rrcInstance is: $rrcInstance")
+      logger.info(s"platform cache has data: ${Platform.cache}")
       rrcInstance.get.ueId shouldBe ueId
       rrcInstance.get.cellId shouldBe cellId
+
+      val nasTransportResult = Await.result(
+        Platform.run(new RRCProcessing)(NasTransport(ueId,cellId,"some content"), None),
+        3 seconds
+      )
     }
   }
 }

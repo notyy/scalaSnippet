@@ -2,9 +2,8 @@ package reactiveComponent.framework
 
 import com.typesafe.scalalogging.slf4j.StrictLogging
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 import scala.language.postfixOps
 
 trait ReactiveComponent[A, B] {
@@ -22,39 +21,48 @@ trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] with StrictLogg
   def doUpdate(input: A): Future[B]
 }
 
-trait Result[FutureInput, Output]
+//trait Result[FutureInput, Output]
 
-case class FutureAction[A, B](futureAction: Future[A]) extends Result[A, B]
+//case class FutureAction[A, B](futureAction: Future[A]) extends Result[A, B]
 
-case class Output[A, B](output: B) extends Result[A, B]
+case class Output[A, B](output: B)
 
-trait StatefulComponent[Model, A, B] extends ReactiveComponent[A, B] with StrictLogging {
+// extends Result[A, B]
 
-  def update(model: Model, input: A): Future[(Model, Result[A, B])] = {
+trait KeyedInput {
+  def key: String
+}
+
+trait StatefulComponent[A <: KeyedInput, B, M] extends ReactiveComponent[A, B] with StrictLogging {
+
+  def update(model: Option[M], input: A): Future[(Option[M], B)] = {
     logger.info(s"$processName started, input: $input, model: $model")
     val rs = Await.ready(doUpdate(model, input), 3 seconds)
     logger.info(s"$processName completed, result: $rs")
     rs
   }
 
-  def doUpdate(model: Model, input: A): Future[(Model, Result[A, B])]
+  def doUpdate(model: Option[M], input: A): Future[(Option[M], B)]
 
-  def run(initModel: Model, input: A): Future[B] = {
-    runIt(initModel, input)
-  }
+  def extract(model: String): M
+  def modelSerialize(model: M): String
 
-  def runIt(model: Model, input: A): Future[B] = {
-    update(model, input).flatMap {
-      case (newModel, result) => result match {
-        case Output(output) => Future {
-          output
-        }
-        case (FutureAction(futureAction)) =>
-          futureAction.flatMap {
-            newInput => runIt(newModel, newInput)
-          }
-      }
-    }
-  }
+  //  def run(initModel: M, input: A): Future[B] = {
+  //    runIt(initModel, input)
+  //  }
+  //
+  //  def runIt(model: KeyedModel[K, M], input: A): Future[B] = {
+  //    update(model, input).flatMap {
+  //      case (newModel, result) => result match {
+  //        case Output(output) => Future {
+  //          output
+  //        }
+  //        case (FutureAction(futureAction)) =>
+  //          futureAction.flatMap {
+  //            newInput => runIt(newModel, newInput)
+  //          }
+  //      }
+  //    }
+  //  }
 }
 
