@@ -10,6 +10,7 @@ import akka.util.ByteString
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
+import scala.language.postfixOps
 
 object Factorials extends App {
 
