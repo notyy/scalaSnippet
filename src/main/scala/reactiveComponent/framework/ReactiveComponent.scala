@@ -1,6 +1,7 @@
 package reactiveComponent.framework
 
 import com.typesafe.scalalogging.slf4j.StrictLogging
+import reactiveComponent.framework.ComponentWithSideEffect.Result
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
@@ -21,12 +22,6 @@ trait SimpleTransformation[A, B] extends ReactiveComponent[A, B] with StrictLogg
   def doUpdate(input: A): Future[B]
 }
 
-//trait Result[FutureInput, Output]
-
-//case class FutureAction[A, B](futureAction: Future[A]) extends Result[A, B]
-
-case class Output[A, B](output: B)
-
 // extends Result[A, B]
 
 trait KeyedInput {
@@ -45,6 +40,7 @@ trait StatefulComponent[A <: KeyedInput, B, M] extends ReactiveComponent[A, B] w
   def doUpdate(model: Option[M], input: A): Future[(Option[M], B)]
 
   def extract(model: String): M
+
   def modelSerialize(model: M): String
 
   //  def run(initModel: M, input: A): Future[B] = {
@@ -64,5 +60,19 @@ trait StatefulComponent[A <: KeyedInput, B, M] extends ReactiveComponent[A, B] w
   //      }
   //    }
   //  }
+}
+
+trait ComponentWithSideEffect[A, B] extends ReactiveComponent[A,B] with StrictLogging {
+  def doUpdate(input: A): Result[A,B]
+}
+
+object ComponentWithSideEffect {
+
+  trait Result[FutureInput, Output]
+
+  case class FutureAction[A, B](futureAction: () => Future[A]) extends Result[A, B]
+
+  case class Output[A, B](output: B)
+
 }
 
