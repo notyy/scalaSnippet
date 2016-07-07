@@ -1,7 +1,6 @@
 package reactiveComponent.nbiot.flow
 
 import reactiveComponent.framework.SimpleTransformation
-import reactiveComponent.nbiot.flow.RBSetup.RBSetupReq
 import reactiveComponent.nbiot.flow.RRCProcessing.RRCInstance
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
 
