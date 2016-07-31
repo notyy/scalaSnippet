@@ -3,9 +3,6 @@ package concurrency.future
 import java.util.Date
 
 import com.typesafe.scalalogging.slf4j.LazyLogging
-import scala.concurrent._
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
 
 case class Money(amount: Double)
 
