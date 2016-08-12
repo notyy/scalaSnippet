@@ -12,4 +12,6 @@ trait C extends A {
   override def hello() = println("hello from C")
 }
 
-object D extends B with C
+object D extends App with B with C{
+  hello()
+}
