@@ -1,7 +1,5 @@
 package hr
 
-import scala.annotation.tailrec
-
 object ExCalculator {
   def f(x: Float): Float = ff(BigDecimal(x),9).toFloat
 
