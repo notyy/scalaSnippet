@@ -1,7 +1,7 @@
 package hr
 
 object ExCalculator {
-  def f(x: Float): Float = ff(BigDecimal(x),9).toFloat
+  def f(x: Float): Float = ff(BigDecimal(x),9).setScale(4, BigDecimal.RoundingMode.HALF_UP).toFloat
 
   def ff(x: BigDecimal, n: Int): BigDecimal = n match{
     case 0 => 1
