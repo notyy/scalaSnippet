@@ -1,7 +1,6 @@
 package hr
 
 import org.scalatest.{FunSpec, ShouldMatchers}
-import utils.FloatPointUtil
 
 class ExCalculatorSpec extends FunSpec with ShouldMatchers {
   describe("Excalculator"){
