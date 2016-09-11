@@ -172,3 +172,5 @@ testOptions in jacoco.Config ++= Seq(
 )
 
 packAutoSettings
+
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
