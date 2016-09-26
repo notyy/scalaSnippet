@@ -173,4 +173,4 @@ testOptions in jacoco.Config ++= Seq(
 
 packAutoSettings
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature","-language:higherKinds","-language:implicitConversions")
