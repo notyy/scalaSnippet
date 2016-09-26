@@ -1,4 +1,4 @@
-package tree
+package adt
 
 object TreeModule extends App {
   sealed trait Tree[+T]
