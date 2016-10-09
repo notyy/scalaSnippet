@@ -10,6 +10,16 @@ trait SampleTxtProcessorLoanImpl {
     }
     count
   }
+
+  def countFunctions(fileName: String): Int = withReader(fileName){ reader =>
+    var count = 0
+    var line = reader.readLine()
+    while (line != null && line.startsWith("def")) {
+      count += 1
+      line = reader.readLine()
+    }
+    count
+  }
 }
 
 object SampleTxtProcessorLoanImpl extends SampleTxtProcessorLoanImpl with FileReadSupport
