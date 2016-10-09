@@ -2,7 +2,7 @@ package compose
 
 object compose extends App {
 
-  def add1: Int => Int = ??? //_ + 1
+  def add1: Int => Int = _ + 1
 
   def multi2: Int => Int = _ * 2
 
