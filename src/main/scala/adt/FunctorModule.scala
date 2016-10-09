@@ -22,6 +22,10 @@ object FunctorModule {
       case Cons(h,tail) => Cons(f(h), map(tail)(f))
     }
   }
+
+//  implicit def Function1Functor[T]: Functor[({type l[a]=(T) => a})#l] = new Functor[({type l[a]=(T) => a})#l] {
+//    override def map[A, B](t: (T) => A)(f: (A) => B): (T) => B = t andThen f
+//  }
 }
 
 
