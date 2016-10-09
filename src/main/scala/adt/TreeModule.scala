@@ -36,7 +36,7 @@ object TreeModule extends App {
 
   def allMulti2(tree: Tree[Int]): Tree[Int] = map(tree)(_ * 2)
 
-  def map[A,B](tree: Tree[A])(f: A => B): Tree[B] = tree.map(f)
+//  def map[A,B](tree: Tree[A])(f: A => B): Tree[B] = tree.map(f)
 
   println(allMulti2(bigTree))
 
