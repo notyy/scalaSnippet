@@ -8,4 +8,5 @@ object TreeModule extends App {
   case object Empty extends Tree[Nothing]
 
   println(Branch(Empty,1,Leaf(1)))
+  Branch(Leaf(2), 1, Empty)
 }
