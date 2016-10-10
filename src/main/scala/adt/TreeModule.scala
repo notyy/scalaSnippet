@@ -27,7 +27,7 @@ object TreeModule extends App {
     case Empty => NotExist
   }
 
-  println(s"right most value is ${rightMost(bigTree) * 2}")
+  println(s"right most value is ${rightMost(bigTree)}")
 
   def allMulti2(tree: Tree[Int]): Tree[Int] = map(tree)(_ * 2)
 
