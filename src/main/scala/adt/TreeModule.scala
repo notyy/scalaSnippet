@@ -15,15 +15,6 @@ object TreeModule extends App {
   case class Leaf[T](value: T) extends Tree[T] {
     override def map[R](f: (T) => R): Tree[R] = Leaf(f(value))
   }
-//  case object Empty extends Tree[Nothing]
-
-  private val tree: Branch[Int] = Branch(Leaf(2), 1, Leaf(3))
-  println(tree)
-  println(s"value is ${tree.right.value}")
-
-  tree match {
-    case Branch(_,_,Leaf(v)) => println(s"leaf is $v")
-  }
 
   private val bigTree:Tree[Int] = Branch(Leaf(2), 1, Branch(Leaf(3),4,Leaf(5)))
 
