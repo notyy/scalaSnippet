@@ -8,6 +8,7 @@ object OptionalModule {
     def getOrElse[B >: T](default: B):B
     def map[R](f: T => R): Optional[R]
     def <%>[R](optFunc: Optional[T => R]): Optional[R]
+    def flatMap[R](f: T => Optional[R]): Optional[R]
   }
 
   case class Just[T](value: T) extends Optional[T] {
@@ -22,6 +23,11 @@ object OptionalModule {
     override def <%>[R](optFunc: Optional[(T) => R]): Optional[R] = {
       if(optFunc.isEmpty) NotExist else Just(optFunc.get(value))
     }
+
+    override def flatMap[R](f: (T) => Optional[R]): Optional[R] = {
+      val optResult = f(value)
+      if(optResult.isEmpty) NotExist else optResult
+    }
   }
 
   case object NotExist extends Optional[Nothing] {
@@ -34,6 +40,8 @@ object OptionalModule {
     override def map[R](f: (Nothing) => R): Optional[R] = NotExist
 
     override def <%>[R](optFunc: Optional[(Nothing) => R]): Optional[R] = NotExist
+
+    override def flatMap[R](f: (Nothing) => Optional[R]): Optional[R] = NotExist
   }
 
 }
