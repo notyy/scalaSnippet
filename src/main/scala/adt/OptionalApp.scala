@@ -19,11 +19,13 @@ object OptionalApp extends App {
 
   getUserByName("damotou").map(getAge)
 
-  getUserByName("damotou") match {
-    case Just(user) => fetchGetAgeFunc match {
-      case Just(func) => Just(func(user))
-      case NotExist => NotExist
-    }
-    case NotExist => NotExist
-  }
+//  getUserByName("damotou") match {
+//    case Just(user) => fetchGetAgeFunc match {
+//      case Just(func) => Just(func(user))
+//      case NotExist => NotExist
+//    }
+//    case NotExist => NotExist
+//  }
+  getUserByName("damotou") <%> fetchGetAgeFunc
+
 }
