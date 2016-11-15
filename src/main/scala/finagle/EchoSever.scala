@@ -8,6 +8,7 @@ object EchoSever extends App {
     def apply(req: httpx.Request): Future[httpx.Response] =
       Future.value {
         println(s"get req $req, content is ${req.contentString}")
+        Thread.sleep(2000)
         httpx.Response(req.version, httpx.Status.Ok)
       }
   }

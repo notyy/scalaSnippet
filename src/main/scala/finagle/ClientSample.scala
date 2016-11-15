@@ -9,6 +9,7 @@ object ClientSample extends App {
   request.host = "127.0.0.1"
   request.contentString = "test"
   val response: Future[httpx.Response] = client(request)
+  println("Request has been sent")
   response.onSuccess { resp: httpx.Response =>
     println("GET success: " + resp)
   }
