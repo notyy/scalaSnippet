@@ -1,6 +1,6 @@
 package concurrency.promise
 
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import com.typesafe.scalalogging.slf4j.{LazyLogging, StrictLogging}
 
 import scala.concurrent._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,7 +10,7 @@ case class Money(amount: Double)
 
 case class Shoe(brand: String)
 
-object Double11 extends App with LazyLogging {
+object Double11 extends App with StrictLogging {
   logger.info("演出开始")
   val p = Promise[Money]()
   val f = p.future
