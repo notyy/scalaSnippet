@@ -33,6 +33,7 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.1.2",
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "junit" % "junit" % "4.11" % "test",
+  "com.novocode" % "junit-interface" % "0.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
   "org.mockito" % "mockito-all" % "1.9.5" % "test,provided",
 //  "com.typesafe.akka" %% "akka-actor" % "2.3.6",
@@ -172,6 +173,8 @@ testOptions in jacoco.Config ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest,"-o"),
   Tests.Argument(TestFrameworks.ScalaTest,"-l","FunctionTest")
 )
+
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-q", "-v")
 
 packAutoSettings
 
