@@ -1,7 +1,8 @@
-import scala.collection.JavaConversions._
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class MapSampleTest extends FunSpec with ShouldMatchers {
+import scala.collection.JavaConversions._
+
+class MapSampleTest extends FunSpec with Matchers {
   describe("a MapSample"){
     it("should select element that is >2 , then do * 2 to each element"){
       val mapSample = new MapSample()

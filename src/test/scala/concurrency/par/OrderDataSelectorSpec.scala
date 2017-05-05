@@ -1,8 +1,8 @@
 package concurrency.par
 
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class OrderDataSelectorSpec extends FunSpec with ShouldMatchers{
+class OrderDataSelectorSpec extends FunSpec with Matchers{
   describe("MasterDataProvider"){
     it("can filter data by order amount"){
       val orderDataProvider = new MockOrderRepository {

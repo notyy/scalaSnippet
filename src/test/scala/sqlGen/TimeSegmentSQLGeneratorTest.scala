@@ -1,9 +1,9 @@
 package sqlGen
 
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 import sqlGen.Domain.{SQLPart, TimeSegment}
 
-class TimeSegmentSQLGeneratorTest extends FunSpec with ShouldMatchers {
+class TimeSegmentSQLGeneratorTest extends FunSpec with Matchers {
   describe("genTimeSegmentsSQL") {
     it("should generate sql for time segment parameter") {
       val timeSegmentSQLGenerator = new TimeSegmentSQLGenerator {}

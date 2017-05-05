@@ -1,9 +1,9 @@
 package sqlGen
 
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 import sqlGen.Domain._
 
-class ReportSQLGeneratorImplTest extends FunSpec with ShouldMatchers {
+class ReportSQLGeneratorImplTest extends FunSpec with Matchers {
   
   trait SampleDBConfigLoader extends DBConfigLoader{
     override def loadConfig: SQLPart = SQLPart("'dbproperties'")

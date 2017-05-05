@@ -1,8 +1,8 @@
 package loanPattern
 
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class SampleTxtProcessorLoanImplTest extends FunSpec with ShouldMatchers {
+class SampleTxtProcessorLoanImplTest extends FunSpec with Matchers {
   describe("SampleTxtProcessorLoanImpl"){
     it("can count how many lines are there in a file"){
       val txtProcessor = new SampleTxtProcessorLoanImpl with FileReadSupport

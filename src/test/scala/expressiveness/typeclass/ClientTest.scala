@@ -1,9 +1,9 @@
 package expressiveness.typeclass
 
 import expressiveness.typeclass.ShapeModule.{Circle, Square}
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class ClientTest extends FunSpec with ShouldMatchers{
+class ClientTest extends FunSpec with Matchers{
   describe("Client"){
     it("should print area of shape"){
       Client.printArea(Square(5.0))

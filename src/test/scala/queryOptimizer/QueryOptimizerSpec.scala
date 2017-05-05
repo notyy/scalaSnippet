@@ -1,9 +1,9 @@
 package queryOptimizer
 
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 import queryOptimizer.QueryOptimizer.SQL
 
-class QueryOptimizerSpec extends FunSpec with ShouldMatchers{
+class QueryOptimizerSpec extends FunSpec with Matchers{
   describe("QueryOptimizer"){
     it("should optimize a raw sql, generate better sql"){
       pending

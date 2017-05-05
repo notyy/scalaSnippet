@@ -1,7 +1,7 @@
 package reactiveComponent.nbiot.flow
 
 import com.typesafe.scalalogging.slf4j.StrictLogging
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 import reactiveComponent.Platform
 import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.CellUECount
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
@@ -10,7 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-class CellLoadBalanceCheckTest extends FunSpec with ShouldMatchers with StrictLogging {
+class CellLoadBalanceCheckTest extends FunSpec with Matchers with StrictLogging {
   describe("CellLoadBalanceCheck") {
     it("should check cell load balance") {
       val checkResult = (new CellLoadBalanceCheck).update(UL_CCCH_MSG("content", CellId("1"), UeId("5")), CellUECount(4))

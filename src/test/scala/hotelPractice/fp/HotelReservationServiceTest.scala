@@ -1,9 +1,9 @@
 package hotelPractice.fp
 
 import hotelPractice.fp.HotelReservationService.{Agenda, Hotel, Regular}
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 
-class HotelReservationServiceTest extends FunSpec with ShouldMatchers {
+class HotelReservationServiceTest extends FunSpec with Matchers {
   private val lakewood: Hotel = Hotel(
     name = "LakeWood", rating = 3,
     regularWeekdayPrice = 110.0,

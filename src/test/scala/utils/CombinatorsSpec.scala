@@ -1,13 +1,12 @@
 package utils
 
-import java.io.PrintWriter
-
-import org.scalatest.{BeforeAndAfter, ShouldMatchers, FunSpec}
-import patterns.{Path, ReadSupport}
-import Combinator._
 import java.io._
 
-class CombinatorsSpec extends FunSpec with ShouldMatchers with BeforeAndAfter with ReadSupport {
+import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
+import patterns.{Path, ReadSupport}
+import utils.Combinator._
+
+class CombinatorsSpec extends FunSpec with Matchers with BeforeAndAfter with ReadSupport {
   val input = "src/test/resources/doOverSample.txt"
   val output = "tmp/doOverSampleOut.txt"
   

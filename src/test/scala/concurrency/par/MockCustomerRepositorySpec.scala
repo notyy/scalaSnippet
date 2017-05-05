@@ -1,8 +1,8 @@
 package concurrency.par
 
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class MockCustomerRepositorySpec extends FunSpec with ShouldMatchers{
+class MockCustomerRepositorySpec extends FunSpec with Matchers{
   describe("MockCustomerRepository"){
     it("can get customer name by id"){
       val customerDataProvider = new MockCustomerRepository {

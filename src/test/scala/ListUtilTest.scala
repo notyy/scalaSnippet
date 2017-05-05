@@ -1,7 +1,8 @@
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
+
 import scala.collection.JavaConversions._
 
-class ListUtilTest extends FunSpec with ShouldMatchers {
+class ListUtilTest extends FunSpec with Matchers {
   describe("ListUtil") {
     it("allows to apply filter function to a List") {
       val list = List(1, 2, 3, 4, 5)

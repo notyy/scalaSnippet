@@ -1,9 +1,9 @@
 package sample
 
+import org.scalatest.{FunSpec, Matchers}
 import sample.Segment._
-import org.scalatest.{FunSpec, ShouldMatchers}
 
-class SegmentTest extends FunSpec with ShouldMatchers {
+class SegmentTest extends FunSpec with Matchers {
    describe("segment"){
      it("can be expressed by UnOp"){
        val expr = 5 < "EcIo"

@@ -1,8 +1,8 @@
 import java.util
 
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 
-class UglyJavaTest extends FunSpec with ShouldMatchers {
+class UglyJavaTest extends FunSpec with Matchers {
   describe("UglyJava"){
     ignore("sum a given List"){
       val uj = new UglyJava

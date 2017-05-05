@@ -1,8 +1,8 @@
 package hr
 
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 
-class ExCalculatorSpec extends FunSpec with ShouldMatchers {
+class ExCalculatorSpec extends FunSpec with Matchers {
   describe("Excalculator"){
     it("can calculator e^x"){
       ExCalculator.f(20.0000f) shouldBe (2423600.1887f +- 0.0001f)

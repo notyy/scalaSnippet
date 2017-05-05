@@ -2,12 +2,12 @@ package excercise.fp
 
 import excercise.fp.Factory._
 import org.scalatest.tags.Slow
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 import org.slf4j.LoggerFactory
-import tags.Tags.{FastTest, DbTest}
+import tags.Tags.{DbTest, FastTest}
 
 @Slow
-class FactorySpec extends FunSpec with ShouldMatchers {
+class FactorySpec extends FunSpec with Matchers {
   val logger = LoggerFactory.getLogger(this.getClass)
 
   describe("object Factory defines many functions") {

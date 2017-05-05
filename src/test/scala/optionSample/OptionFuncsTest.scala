@@ -1,9 +1,9 @@
 package optionSample
 
 import optionSample.OptionFuncs._
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 
-class OptionFuncsTest extends FunSpec with ShouldMatchers {
+class OptionFuncsTest extends FunSpec with Matchers {
   describe("map2"){
     it("should combines two options"){
       map2(Some(List(1)), Some(2))((a,b) => a :+ b) shouldBe Some(List(1,2))

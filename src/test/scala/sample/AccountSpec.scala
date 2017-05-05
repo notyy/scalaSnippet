@@ -1,6 +1,5 @@
 package sample
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
 class AccountSpec extends FunSpec with Matchers {
   describe("An Account") {

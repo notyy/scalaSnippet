@@ -3,11 +3,11 @@ package monad
 import java.io.File
 
 import monad.StringPresentable.Account
-import org.scalatest.{BeforeAndAfter, FunSpec, ShouldMatchers}
+import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
 
 import scala.io.Source
 
-class PersistedTest extends FunSpec with ShouldMatchers with BeforeAndAfter {
+class PersistedTest extends FunSpec with Matchers with BeforeAndAfter {
 
   val path = FilePath("./temp/test.txt")
   val content = "hello,world\n"

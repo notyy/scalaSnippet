@@ -1,8 +1,8 @@
 package concurrency.par
 
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
-class DataAggregatorSpec extends FunSpec with ShouldMatchers {
+class DataAggregatorSpec extends FunSpec with Matchers {
   describe("DataAggregatorSpec") {
     it("can bind order amount and customer name") {
       val dataAggregator = new Object with DataAggregator with MockCustomerRepository with MockOrderRepository {

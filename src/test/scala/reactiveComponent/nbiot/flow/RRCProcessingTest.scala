@@ -1,7 +1,7 @@
 package reactiveComponent.nbiot.flow
 
 import com.typesafe.scalalogging.slf4j.StrictLogging
-import org.scalatest.{FunSpec, ShouldMatchers}
+import org.scalatest.{FunSpec, Matchers}
 import reactiveComponent.Platform
 import reactiveComponent.nbiot.flow.RRCProcessing.{NasTransport, RRCConnReq}
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
@@ -10,7 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-class RRCProcessingTest extends FunSpec with ShouldMatchers with StrictLogging {
+class RRCProcessingTest extends FunSpec with Matchers with StrictLogging {
   describe("RRCProcessing") {
     it("can process rrc connection req") {
       val ueId: UeId = UeId("U1001")
