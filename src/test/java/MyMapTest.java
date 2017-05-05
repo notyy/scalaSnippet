@@ -27,7 +27,6 @@ public class MyMapTest {
         inOrder.verify(mockMap).put(eq("key2"), argument.capture());
         assertThat(argument.getValue().getValue1(), is(expectedParameter.getValue1()));
         assertThat(argument.getValue().getValue2(), is(expectedParameter.getValue2()));
-
     }
 
     //this is the class to be tested
