@@ -1,4 +1,4 @@
 public interface MyMap {
-    void put(String key, String value);
-    String get(String key);
+    void put(String key, Object value);
+    Object get(String key);
 }
