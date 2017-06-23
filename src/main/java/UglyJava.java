@@ -25,6 +25,15 @@ public class UglyJava {
         return finalSum;
     }
 
+    public int getSum1(List<Integer> list) {
+        int rs = 0;
+        for (int i :
+                list) {
+            rs += i;
+        }
+        return rs;
+    }
+
     private void saveSum(int sum){
         BufferedWriter writer = null;
         try {

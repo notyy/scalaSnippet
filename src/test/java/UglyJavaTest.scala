@@ -10,5 +10,10 @@ class UglyJavaTest extends FunSpec with Matchers {
       uj.getSum(list) shouldBe 24
 //      list shouldBe util.Arrays.asList[Integer](1, 2, 3, 4, 5)
     }
+    it("can sum a given list in a pure way"){
+      val uj = new UglyJava
+      val list = new util.ArrayList[Integer](util.Arrays.asList[Integer](1, 2, 3, 4, 5))
+      uj.getSum1(list) shouldBe 15
+    }
   }
 }
