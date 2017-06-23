@@ -1,4 +1,4 @@
-package akkaStream
+package concurrency.akkaStream
 
 import java.nio.file.Paths
 
