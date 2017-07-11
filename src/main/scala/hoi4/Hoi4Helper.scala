@@ -165,14 +165,53 @@ object Hoi4Helper {
 object Hoi4HelperApp extends App {
   import Hoi4Helper._
 
-  private val needToProduce = Map(
-    infantry41 -> (16 + 16 + 12),
-    marine40 -> 8,
-    lightArmor41 -> 8,
-    motorized42 -> 32,
-    mech42 -> 8,
-    tank42 -> 8
+//  val needToProduce = Map(
+//    infantry41 -> (16 + 16 + 12),
+//    marine40 -> 8,
+//    lightArmor41 -> 8,
+//    motorized42 -> 32,
+//    mech42 -> 8,
+//    tank42 -> 8
+//  )
+
+  val northEastArmy = Map(
+    infantry41 -> 12,
+    marine40 -> 4,
+    lightArmor41 -> 4,
+    tank42 -> 4
   )
+  val chinaArmy = Map(
+    infantry41 -> 12,
+    marine40 -> 4,
+    lightArmor41 -> 4,
+    tank42 -> 4
+  )
+  val southAsiaArmy = Map(
+    infantry41 -> 12,
+    marine40 -> 4,
+    lightArmor41 -> 4,
+    tank42 -> 4
+  )
+  val westEuroArmy1 = Map(
+    motorized42 -> 12,
+    mech42 -> 6,
+    tank42 -> 6
+  )
+  val westEuroArmy2 = Map(
+    motorized42 -> 12,
+    mech42 -> 6,
+    tank42 -> 6
+  )
+  val westEuroArmy3 = Map(
+    motorized42 -> 12,
+    mech42 -> 6,
+    tank42 -> 6
+  )
+
+  import concurrency.akkaStream.MapUtil._
+  val needToProduce = mergeMaps(northEastArmy,chinaArmy,southAsiaArmy,westEuroArmy1,westEuroArmy2,westEuroArmy3)(_ + _)
+
+
   val title: String = needToProduce.toSet[(DivisionType,Int)].map {
     case (divisionType:DivisionType,quantity:Int) => s"$quantity ${divisionType.name}"
   }.reduce((s1,s2) => s"$s1 and $s2")
