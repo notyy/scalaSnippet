@@ -25,8 +25,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.11.5" % "test",
-  "org.pegdown" % "pegdown" % "1.0.2" % "test", //used in html report
+  "org.scalacheck" %% "scalacheck" % "1.13.4" % "test",
+  "org.pegdown" % "pegdown" % "1.6.0" % "test", //used in html report
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.slf4j" % "slf4j-api" % "1.7.7",
   "com.storm-enroute" %% "scalameter" % "0.6" % "test",
