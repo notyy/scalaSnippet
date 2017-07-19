@@ -15,9 +15,11 @@ class AccountScalaCheckSpec extends FeatureSpec with GivenWhenThen with Matchers
       Given("Account A,amount > 0")
       And("Account B,amount > 0")
       When("transfer from account A to account B,amount < balance of account A")
-      Then("amount in account A = init amount - transfer amount")
-      And("amount in account B = init amount + transfer amount")
-      And("amount in account A and account are both >= 0")
+      Then("balance in account A = init amount - transfer amount")
+      And("balance in account B = init amount + transfer amount")
+      And("balance in account A and account are both >= 0")
+      And("sum of balance in account A and account B are same as before transfer")
+
       forAll("balanceA", "balanceB", "transferAmount", minSuccessful(50), maxDiscarded(5000)) {
         (balanceA: Double, balanceB: Double, transferAmount: Double) =>
           whenever(balanceA > 0.00 && balanceB > 0.00
@@ -26,8 +28,8 @@ class AccountScalaCheckSpec extends FeatureSpec with GivenWhenThen with Matchers
             val accountB = new Account("B", balanceB)
             val (oldA, oldB) = (accountA.balance, accountB.balance)
             Account.transfer(accountA, accountB, transferAmount)
-            accountA.balance should be (balanceA - transferAmount)
-            accountB.balance should be (balanceB + transferAmount)
+            accountA.balance should be (oldA - transferAmount)
+            accountB.balance should be (oldB + transferAmount)
             accountA.balance should be >= 0.00
             accountB.balance should be >= 0.00
             (accountA.balance + accountB.balance) shouldBe (oldA + oldB)
