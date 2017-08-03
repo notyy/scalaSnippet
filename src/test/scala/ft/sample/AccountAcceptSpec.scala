@@ -10,7 +10,6 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
     info("I want account system can make sure money in accounts be transfered safely,account status can be checked")
     info("to ensure the stable and accurate of whole accounting system")
 
-    scenario("Account can be created,Account must have owner and initialization amount must be > 0")(pending)
     scenario("money can transfer between accounts",FunctionTest) {
       Given("Account A,amount 100")
       val accountA = new Account("A", 100.00)
@@ -24,6 +23,7 @@ class AccountAcceptSpec extends FeatureSpec with GivenWhenThen with Matchers {
       accountB.balance should be (100)
     }
 
+    scenario("Account can be created,Account must have owner and initialization amount must be > 0")(pending)
     scenario("can not transfer more money than balance of the account")(pending)
   }
 }
