@@ -13,16 +13,18 @@ class Ping extends Actor with ActorLogging {
       opponent ! "Ping!"
     }
     case "Pang!" => {
-      log.info("Pang! received")
       count += 1
-      if (count < 10) sender() ! "Ping!"
-      else context become tired
+      log.info(s"Pang! received $count times")
+      if (count >= 10) {
+        context become tired
+      }
+      sender() ! "Ping!"
     }
   }
 
   def tired: Receive = {
     case _ => {
-      log.info("already tried")
+      log.info("already tired")
     }
   }
 }
