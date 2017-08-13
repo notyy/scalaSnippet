@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import akka.pattern.ask
 import akka.util.Timeout
 
+import scala.concurrent.Await
 import scala.io.StdIn
 
 object SimpleIOApp extends App with StrictLogging {
@@ -27,6 +28,7 @@ object SimpleIOApp extends App with StrictLogging {
 //        val rs = multiplyActor ? NumberInput(input.toInt)
         multiplyActor ! NumberInput(input.toInt)
 //        rs.mapTo[String].foreach(v => logger.info(v))
+//        logger.info(Await.result(rs.mapTo[String], 5 seconds))
       }
     }
   } finally {
