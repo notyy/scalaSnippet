@@ -4,7 +4,6 @@ import akka.actor.{Actor, ActorRef, Props}
 import com.typesafe.scalalogging.slf4j.StrictLogging
 import concurrency.akka.simpleIO.GreetingActor.{GreetResp, GreetingReq}
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
-import concurrency.akka.simpleIO.ToUpperActor.{ToUpperReq, ToUpperResp}
 
 object MultiplyActor {
   def props(): Props = Props(new MultiplyActor)
