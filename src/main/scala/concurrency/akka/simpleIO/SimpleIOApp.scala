@@ -23,10 +23,10 @@ object SimpleIOApp extends App with StrictLogging {
       if (input == ":q") {
         shouldContinue = false
       } else {
-//        implicit val timeout: Timeout = 5.seconds
-//        implicit val dispatcher =  system.dispatcher
-//        val rs = multiplyActor ? NumberInput(input.toInt)
         multiplyActor ! NumberInput(input.toInt)
+        //        implicit val timeout: Timeout = 5.seconds
+        //        implicit val dispatcher =  system.dispatcher
+        //        val rs = multiplyActor ? NumberInput(input.toInt)
 //        rs.mapTo[String].foreach(v => logger.info(v))
 //        logger.info(Await.result(rs.mapTo[String], 5 seconds))
       }
