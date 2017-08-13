@@ -15,14 +15,19 @@ object MultiplyActor {
 class MultiplyActor extends Actor with StrictLogging {
   val toUpperActor: ActorRef = context.actorOf(ToUpperActor.props())
   val greetingActor: ActorRef = context.actorOf(GreetingActor.props())
+  var asker: Option[ActorRef] = None
 
   override def receive: Receive = {
     case NumberInput(i) => {
+      asker = Some(sender())
       toUpperActor ! ToUpperReq(i.toString)
     }
     case ToUpperResp(v) => {
       greetingActor ! GreetingReq(v)
     }
-    case GreetResp(v) => logger.info(v)
+    case GreetResp(v) => {
+//      asker.foreach(_ ! v)
+      logger.info(v)
+    }
   }
 }
