@@ -1,9 +1,11 @@
 package concurrency.akka.simpleIO
 
-import akka.actor.{Actor, ActorRef, Props}
+import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
+import akka.actor.{Actor, ActorRef, OneForOneStrategy, Props}
 import com.typesafe.scalalogging.slf4j.StrictLogging
 import concurrency.akka.simpleIO.GreetingActor.{GreetResp, GreetingReq}
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
+import scala.concurrent.duration._
 
 object MultiplyActor {
   def props(): Props = Props(new MultiplyActor)
@@ -12,6 +14,15 @@ object MultiplyActor {
 }
 
 class MultiplyActor extends Actor with StrictLogging {
+
+//  override val supervisorStrategy =
+//    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+//      case _: ArithmeticException      => Resume
+//      case _: NullPointerException     => Restart
+//      case _: IllegalArgumentException => Stop
+//      case _: Exception                => Escalate
+//    }
+
   val greetingActor: ActorRef = context.actorOf(GreetingActor.props())
 //  var asker: Option[ActorRef] = None
 

@@ -1,6 +1,7 @@
 package concurrency.akka.simpleIO
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
+import akka.actor.{ActorRef, ActorSystem, OneForOneStrategy}
 import com.typesafe.scalalogging.slf4j.StrictLogging
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
 

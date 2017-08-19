@@ -12,6 +12,11 @@ object GreetingActor {
 
 class GreetingActor extends Actor {
   override def receive: Receive = {
-    case GreetingReq(v) => sender() ! GreetResp(s"hello, your result is $v")
+    case GreetingReq(v) => {
+      if(v == "222") {
+        throw new IllegalArgumentException("can't process 222")
+      } else
+        sender() ! GreetResp(s"hello, your result is $v")
+    }
   }
 }
