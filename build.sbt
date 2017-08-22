@@ -59,10 +59,11 @@ libraryDependencies ++= Seq(
   "com.googlecode.scalascriptengine" %% "scalascriptengine" % "1.3.10",
   "org.scala-lang" % "scala-compiler" % "2.11.2",
   "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test",
-
   "org.json4s" %% "json4s-native" % "3.4.0",
   "org.hamcrest" % "hamcrest-junit" %"2.0.0.0",
-  "org.mockito" % "mockito-core" % "2.7.22"
+  "org.mockito" % "mockito-core" % "2.7.22",
+  "org.quartz-scheduler" % "quartz" % "2.2.3",
+  "org.quartz-scheduler" % "quartz-jobs" % "2.2.3"
 )
 
 //   TODO reopen it later
