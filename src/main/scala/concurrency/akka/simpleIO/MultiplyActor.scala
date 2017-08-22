@@ -15,13 +15,13 @@ object MultiplyActor {
 
 class MultiplyActor extends Actor with StrictLogging {
 
-//  override val supervisorStrategy =
-//    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
-//      case _: ArithmeticException      => Resume
-//      case _: NullPointerException     => Restart
-//      case _: IllegalArgumentException => Stop
-//      case _: Exception                => Escalate
-//    }
+  override val supervisorStrategy =
+    OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+      case _: ArithmeticException      => Resume
+      case _: NullPointerException     => Restart
+      case _: IllegalArgumentException => Stop
+      case _: Exception                => Escalate
+    }
 
   val greetingActor: ActorRef = context.actorOf(GreetingActor.props())
 //  var asker: Option[ActorRef] = None

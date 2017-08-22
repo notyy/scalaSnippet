@@ -1,7 +1,7 @@
 package concurrency.akka.simpleIO
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
+import akka.stream.{ActorMaterializer, OverflowStrategy, ThrottleMode}
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.{Done, NotUsed}
 import com.typesafe.scalalogging.slf4j.StrictLogging
@@ -22,17 +22,24 @@ object SimpleIOStreamApp extends App with StrictLogging {
     logger.info("please input numbers to be processed")
   }
 
-  Source.fromIterator(() => Iterator.continually(StdIn.readLine()))
-    .map(_.toInt * 2).map(v => s"hello, your result is $v")
-    .runForeach(printResult)
-
-//  val source: Source[String, NotUsed] = Source.fromIterator(() => Iterator.continually(StdIn.readLine()))
-//  val flow: Flow[String, String, NotUsed] = Flow[String].
-//    map(_.toInt * 2).map(v => s"hello, your result is $v")
-//  val sink: Sink[String, Future[Done]] = Sink.foreach[String](printResult)
-//
-//  val listSource = Source.fromIterator(() => List("11","22","33","44","55").toIterator)
-//  val tickSource = Source.tick(0 second, 1 second, 0)
-//  val source1 = listSource.zip(tickSource).map(_._1)
-//  source.runWith(flow to sink)
+  //  Source.fromIterator(() => Iterator.continually(StdIn.readLine()))
+  //    .map(_.toInt * 2).map(v => s"hello, your result is $v")
+  //    .runForeach(printResult)
+  //
+  val source: Source[String, NotUsed] = Source.fromIterator(() => Iterator.continually(StdIn.readLine()))
+  val flow: Flow[String, String, NotUsed] =
+    Flow[String].buffer(1, OverflowStrategy.backpressure)
+        .throttle(1, 1 second,1, ThrottleMode.shaping)
+      .map{ i => i.toInt * 2}.map { v =>
+    s"hello, your result is $v"
+  }
+  val sink: Sink[String, Future[Done]] = Sink.foreach[String]{ rs =>
+    printResult(rs)
+  }
+  //
+  val listSource = Source.fromIterator(() => (1 to 100).map(_.toString).toIterator)
+  val tickSource = Source.tick(0 second, 200 millis, 0)
+  val source1 = listSource.zip(tickSource).map(_._1).buffer(3, OverflowStrategy.dropNew)
+  //
+  source1.runWith(flow to sink)
 }
