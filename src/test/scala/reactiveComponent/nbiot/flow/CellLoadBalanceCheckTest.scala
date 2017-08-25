@@ -1,6 +1,6 @@
 package reactiveComponent.nbiot.flow
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import org.scalatest.{FunSpec, Matchers}
 import reactiveComponent.Platform
 import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.CellUECount

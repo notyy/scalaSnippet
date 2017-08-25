@@ -1,10 +1,10 @@
 package concurrency.akka.simpleIO
 
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, OverflowStrategy, ThrottleMode}
 import akka.stream.scaladsl.{Flow, Sink, Source}
+import akka.stream.{ActorMaterializer, OverflowStrategy, ThrottleMode}
 import akka.{Done, NotUsed}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.Future
 import scala.concurrent.duration._

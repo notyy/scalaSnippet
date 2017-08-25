@@ -2,7 +2,7 @@ package concurrency.future
 
 import java.util.Date
 
-import com.typesafe.scalalogging.slf4j.LazyLogging
+import com.typesafe.scalalogging.LazyLogging
 
 case class Money(amount: Double)
 

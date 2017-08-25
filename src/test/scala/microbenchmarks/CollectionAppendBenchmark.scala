@@ -1,10 +1,6 @@
 package microbenchmarks
 
-import org.scalameter.PerformanceTest
 import org.scalameter.api._
-import org.scalatest.Ignore
-
-import scala.collection.mutable.ArrayBuffer
 
 object CollectionAppendBenchmark extends PerformanceTest.OfflineReport {
 //  val sizes: Gen[Int] = Gen.range("size")(10000, 50000, 10000)

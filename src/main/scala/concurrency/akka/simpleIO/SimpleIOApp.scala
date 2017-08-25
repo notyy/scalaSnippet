@@ -1,15 +1,9 @@
 package concurrency.akka.simpleIO
 
-import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
-import akka.actor.{ActorRef, ActorSystem, OneForOneStrategy}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import akka.actor.{ActorRef, ActorSystem}
+import com.typesafe.scalalogging.StrictLogging
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
 
-import scala.concurrent.duration._
-import akka.pattern.ask
-import akka.util.Timeout
-
-import scala.concurrent.Await
 import scala.io.StdIn
 
 object SimpleIOApp extends App with StrictLogging {

@@ -3,8 +3,8 @@ package concurrency.akkaStream
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
-import com.typesafe.scalalogging.slf4j.StrictLogging
-import MapUtil._
+import com.typesafe.scalalogging.StrictLogging
+import concurrency.akkaStream.MapUtil._
 
 object WordCount extends App with StrictLogging {
   implicit val system = ActorSystem("WordCount")

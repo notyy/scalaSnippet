@@ -1,7 +1,7 @@
 package concurrency.akka.timer
 
 import akka.actor.{Actor, ActorSystem, PoisonPill, Props}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 
 case object STOP
 case object WORK

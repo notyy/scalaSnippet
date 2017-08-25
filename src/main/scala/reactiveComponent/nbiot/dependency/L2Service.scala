@@ -1,11 +1,8 @@
 package reactiveComponent.nbiot.dependency
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 //import reactiveComponent.nbiot.flow.RRCRejectL2Notify
 //import reactiveComponent.nbiot.flow.RRCRejectL2Notify.{L2Timeout, RRCConnReject}
-
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object L2Service extends StrictLogging {
 //  def rejectNotify: (RRCConnReject => Future[RRCRejectL2Notify.L2Timeout]) = rrcReject => {

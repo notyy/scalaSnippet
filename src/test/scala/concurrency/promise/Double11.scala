@@ -1,10 +1,9 @@
 package concurrency.promise
 
-import com.typesafe.scalalogging.slf4j.{LazyLogging, StrictLogging}
+import com.typesafe.scalalogging.StrictLogging
 
-import scala.concurrent._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.concurrent._
 
 case class Money(amount: Double)
 

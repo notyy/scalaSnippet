@@ -1,6 +1,6 @@
 package reactiveComponent.nbiot.flow
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import reactiveComponent.Platform
 import reactiveComponent.framework.{KeyedInput, StatefulComponent}
 import reactiveComponent.nbiot.flow.CellLoadBalanceCheck.CellUECount
@@ -8,9 +8,9 @@ import reactiveComponent.nbiot.flow.RRCProcessing._
 import reactiveComponent.nbiot.source.UL_CCCH_MSG
 import utils.JSONUtil
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class RRCProcessing extends StatefulComponent[Input, Option[RRCInstance], RRCInstance] with StrictLogging {
 

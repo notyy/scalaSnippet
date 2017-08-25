@@ -1,11 +1,10 @@
 package concurrency.future
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 
-import scala.concurrent.{Await, Future}
-import scala.util.{Failure, Success, Try}
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.concurrent.Future
+import scala.util.Try
 
 object SimpleFuture extends App with StrictLogging {
   def add(x: Int, y: Int): Int = x + y

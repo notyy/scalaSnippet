@@ -1,7 +1,7 @@
 package concurrency.akka.pingpang
 
-import akka.actor.{ActorSystem, PoisonPill, Props}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import akka.actor.{ActorSystem, Props}
+import com.typesafe.scalalogging.StrictLogging
 
 object PingPangRoom extends App with StrictLogging {
   val system = ActorSystem("pingpang")

@@ -17,7 +17,7 @@ isSnapshot := true
 organization := "com.github.notyy"
 
 // set the Scala version used for the project
-scalaVersion := "2.11.7"
+scalaVersion := "2.12.3"
 
 resolvers ++= Seq(
   "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases",
@@ -29,9 +29,9 @@ libraryDependencies ++= Seq(
   "org.pegdown" % "pegdown" % "1.6.0" % "test", //used in html report
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.slf4j" % "slf4j-api" % "1.7.7",
-  "com.storm-enroute" %% "scalameter" % "0.6" % "test",
+  "com.storm-enroute" %% "scalameter" % "0.8.2" % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.2",
-  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
   "junit" % "junit" % "4.11" % "test",
   "com.novocode" % "junit-interface" % "0.11" % "test",
   "com.h2database" % "h2" % "1.3.176",
@@ -56,10 +56,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-testkit" % "2.5.2",
   "com.typesafe.akka" %% "akka-typed" % "2.5.2",
   "com.typesafe.akka" %% "akka-contrib" % "2.5.2",
-  "com.googlecode.scalascriptengine" %% "scalascriptengine" % "1.3.10",
-  "org.scala-lang" % "scala-compiler" % "2.11.2",
+  "com.googlecode.scalascriptengine" %% "scalascriptengine" % "1.3.11",
+  "org.scala-lang" % "scala-compiler" % "2.12.3",
   "org.seleniumhq.selenium" % "selenium-java" % "2.35.0" % "test",
-  "org.json4s" %% "json4s-native" % "3.4.0",
+  "org.json4s" %% "json4s-native" % "3.5.3",
   "org.hamcrest" % "hamcrest-junit" %"2.0.0.0",
   "org.mockito" % "mockito-core" % "2.7.22",
   "org.quartz-scheduler" % "quartz" % "2.2.3",

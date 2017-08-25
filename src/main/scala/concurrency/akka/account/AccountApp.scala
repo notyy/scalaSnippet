@@ -1,7 +1,7 @@
 package concurrency.akka.account
 
 import akka.actor.{ActorSystem, PoisonPill, Props}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 
 object AccountApp extends App with StrictLogging {
   val system = ActorSystem("accountSystem")

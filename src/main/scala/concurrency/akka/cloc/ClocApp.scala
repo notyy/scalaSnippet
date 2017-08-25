@@ -1,8 +1,7 @@
 package concurrency.akka.cloc
 
-import akka.actor.{Props, ActorSystem}
-import com.typesafe.scalalogging.slf4j.StrictLogging
-import concurrency.akka.pingpang.{Pang, Ping}
+import akka.actor.{ActorSystem, Props}
+import com.typesafe.scalalogging.StrictLogging
 
 object ClocApp extends App with StrictLogging {
   val system = ActorSystem("cloc")

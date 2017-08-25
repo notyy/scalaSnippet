@@ -2,9 +2,10 @@ package concurrency.akka.simpleIO
 
 import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
 import akka.actor.{Actor, ActorRef, OneForOneStrategy, Props}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import concurrency.akka.simpleIO.GreetingActor.{GreetResp, GreetingReq}
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
+
 import scala.concurrent.duration._
 
 object MultiplyActor {

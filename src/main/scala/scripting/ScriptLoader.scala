@@ -3,7 +3,7 @@ package scripting
 import java.io.File
 
 import com.googlecode.scalascriptengine.ScalaScriptEngine
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 
 object ScriptLoader extends App with StrictLogging {
   logger.info("starting")

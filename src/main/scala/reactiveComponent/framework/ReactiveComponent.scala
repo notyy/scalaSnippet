@@ -1,6 +1,6 @@
 package reactiveComponent.framework
 
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import reactiveComponent.framework.ComponentWithSideEffect.Result
 
 import scala.concurrent.duration._

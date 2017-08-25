@@ -1,7 +1,7 @@
 package concurrency.akka.simpleIO
 
 import akka.actor.{Actor, Props}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import concurrency.akka.simpleIO.GreetingActor.{GreetResp, GreetingReq}
 
 object GreetingActor {
