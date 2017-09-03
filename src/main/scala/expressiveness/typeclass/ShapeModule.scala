@@ -1,10 +1,8 @@
 package expressiveness.typeclass
 
 object ShapeModule {
-  trait Shape
-
-  case class Square(side: Double) extends Shape
-  case class Circle(radius: Double) extends Shape
+  case class Square(side: Double)
+  case class Circle(radius: Double)
 
   trait HaveArea[T]{
     def area(shape: T): Double
