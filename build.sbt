@@ -63,7 +63,9 @@ libraryDependencies ++= Seq(
   "org.hamcrest" % "hamcrest-junit" %"2.0.0.0",
   "org.mockito" % "mockito-core" % "2.7.22",
   "org.quartz-scheduler" % "quartz" % "2.2.3",
-  "org.quartz-scheduler" % "quartz-jobs" % "2.2.3"
+  "org.quartz-scheduler" % "quartz-jobs" % "2.2.3",
+  "com.typesafe.slick" %% "slick" % "3.2.1",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1"
 )
 
 //   TODO reopen it later
