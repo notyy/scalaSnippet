@@ -25,7 +25,3 @@ trait CustomerRepo {
     database.run(q.result)
   }
 }
-
-object CustomerRepo extends CustomerRepo with DBConfigProvider {
-  override val database: Database = Database
-}
