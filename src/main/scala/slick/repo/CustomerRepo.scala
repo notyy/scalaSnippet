@@ -26,6 +26,6 @@ trait CustomerRepo {
   }
 }
 
-object CustomerRepo extends CustomerRepo with Database with DBConfigProvider {
+object CustomerRepo extends CustomerRepo with DBConfigProvider {
   override val database: Database = Database
 }
