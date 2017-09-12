@@ -7,12 +7,14 @@ import scala.concurrent.Future
 trait Database {
   this: DBConfigProvider =>
 
-  lazy val databaseApi: jdbcProfile.API = jdbcProfile.api
+  val dbConfig = getDatabaseConfig("h2mem1")
 
-  import databaseApi._
+  lazy val databaseApi = dbConfig.profile.api
+
+  import dbConfig.profile.api._
 
   def run[T](action: slick.dbio.DBIOAction[T, NoStream, Nothing]): Future[T] = {
-    db.run(action)
+    dbConfig.db.run(action)
   }
 
 
@@ -45,3 +47,5 @@ trait Database {
     run(drop)
   }
 }
+
+object Database extends Database with DBConfigProvider
