@@ -1,7 +1,7 @@
 package slick.repo
 
+import slick.Database
 import slick.domain.Customer
-import slick.{DBConfigProvider, Database}
 
 import scala.concurrent.Future
 
