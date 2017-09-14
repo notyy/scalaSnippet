@@ -39,7 +39,9 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter {
 
       val customers = Await.result(customerRepo.findByNameLike("notyy"), 5 seconds)
       customers should have size 2
-      customers.forall(_.name.contains("notyy"))
+      customers.foreach(println)
+      customers.forall(_.name.contains("notyy")) shouldBe true
+      customers.forall(_.auditInfo.created != null) shouldBe true
     }
   }
 }

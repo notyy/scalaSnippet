@@ -1,11 +1,12 @@
 package slick.repo
 
+import com.typesafe.scalalogging.StrictLogging
 import slick.Database
-import slick.domain.Customer
+import slick.domain.{AuditInfo, Customer}
 
 import scala.concurrent.Future
 
-trait CustomerRepo {
+trait CustomerRepo extends StrictLogging {
   val database: Database
 
   import database.customers
@@ -14,7 +15,8 @@ trait CustomerRepo {
   def register(name: String): Future[Customer] = {
     val q = (customers returning customers.map(_.id)
       into ((customer, id) => customer.copy(id = id))
-      ) += Customer(None, name, None)
+      ) += Customer(None, name, None,AuditInfo())
+    q.statements.foreach(s => logger.info(s))
     database.run(q)
   }
 
