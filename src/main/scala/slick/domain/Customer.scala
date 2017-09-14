@@ -9,6 +9,10 @@ case class AuditInfo (
   updatedBy: Option[String] = None
 )
 
-case class Customer(id: Option[String], name: String, birthday: Option[String], auditInfo: AuditInfo)
+sealed trait UserType
+case object SuperUser extends UserType
+case object CommonUser extends UserType
+
+case class Customer(id: Option[String], name: String, birthday: Option[String], userType: UserType, auditInfo: AuditInfo)
 case class Product(id: Option[String], name: String)
 case class Trade(id: Option[String], customer: Customer, product: Product)

@@ -1,6 +1,7 @@
 package slick.repo
 
 import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
+import slick.domain.{CommonUser, SuperUser}
 import slick.{DBConfigProvider, Database}
 
 import scala.concurrent.Await
@@ -25,19 +26,35 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter {
   describe("CustomerRepo"){
     it("allow user to register customer into database"){
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
-      val customer = Await.result(customerRepo.register("notyy"), 5 seconds)
+      val customer = Await.result(customerRepo.register("notyy", SuperUser), 5 seconds)
       customer.id should not be empty
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 1
     }
 
     it("can query user by name fuzzily"){
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
-      Await.result(customerRepo.register("notyyXXXzz"), 5 seconds)
-      Await.result(customerRepo.register("notyyYYYzz"), 5 seconds)
-      Await.result(customerRepo.register("xxxxYYYzz"), 5 seconds)
+      Await.result(customerRepo.register("notyyXXXzz", SuperUser), 5 seconds)
+      Await.result(customerRepo.register("notyyYYYzz", SuperUser), 5 seconds)
+      Await.result(customerRepo.register("xxxxYYYzz", CommonUser), 5 seconds)
+      Await.result(customerRepo.listAll, 5 seconds) should have size 3
+      Await.result(customerRepo.listAll, 5 seconds).foreach(println)
+
+      println("find by name like notyy")
+      val customers = Await.result(customerRepo.findByNameLike("notyy"), 5 seconds)
+      println("find by name like notyy complete")
+      customers should have size 2
+      customers.foreach(println)
+      customers.forall(_.name.contains("notyy")) shouldBe true
+      customers.forall(_.auditInfo.created != null) shouldBe true
+    }
+    it("can query by user type"){
+      Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
+      Await.result(customerRepo.register("notyyXXXzz", SuperUser), 5 seconds)
+      Await.result(customerRepo.register("notyyYYYzz", SuperUser), 5 seconds)
+      Await.result(customerRepo.register("xxxxYYYzz", CommonUser), 5 seconds)
       Await.result(customerRepo.listAll, 5 seconds) should have size 3
 
-      val customers = Await.result(customerRepo.findByNameLike("notyy"), 5 seconds)
+      val customers = Await.result(customerRepo.findByUserType(SuperUser), 5 seconds)
       customers should have size 2
       customers.foreach(println)
       customers.forall(_.name.contains("notyy")) shouldBe true
