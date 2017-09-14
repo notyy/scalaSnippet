@@ -1,6 +1,9 @@
 package slick.repo
 
+import com.typesafe.config.ConfigFactory
+import com.typesafe.scalalogging.StrictLogging
 import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
+import slick.basic.DatabaseConfig
 import slick.domain.{CommonUser, SuperUser}
 import slick.{DBConfigProvider, Database}
 
@@ -8,9 +11,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter {
-  val myDatabase = Database
-
+class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with StrictLogging with TestDatabase {
   val customerRepo = new CustomerRepo with DBConfigProvider {
     override val database: Database = myDatabase
   }
