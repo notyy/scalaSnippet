@@ -1,9 +1,7 @@
 package slick.repo
 
-import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
-import slick.basic.DatabaseConfig
 import slick.domain.{CommonUser, SuperUser}
 import slick.{DBConfigProvider, Database}
 
