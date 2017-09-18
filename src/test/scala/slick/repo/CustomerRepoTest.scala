@@ -46,7 +46,7 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
       customers should have size 2
       customers.foreach(println)
       customers.forall(_.name.contains("notyy")) shouldBe true
-      customers.forall(_.auditInfo.created != null) shouldBe true
+      customers.forall(_.auditInfo.created.isDefined) shouldBe true
     }
     it("can query by user type"){
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
@@ -59,7 +59,7 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
       customers should have size 2
       customers.foreach(println)
       customers.forall(_.name.contains("notyy")) shouldBe true
-      customers.forall(_.auditInfo.created != null) shouldBe true
+      customers.forall(_.auditInfo.created.isDefined) shouldBe true
     }
   }
 }

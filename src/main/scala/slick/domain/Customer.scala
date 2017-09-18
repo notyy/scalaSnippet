@@ -5,7 +5,7 @@ import java.util.Date
 case class AuditInfo (
   created: Option[Date] = None,
   createdBy: Option[String] = None,
-  updated: Option[Date] = null,
+  updated: Option[Date] = None,
   updatedBy: Option[String] = None
 )
 
