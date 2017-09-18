@@ -21,7 +21,7 @@ trait Database {
   }
 
   implicit def mapDate = MappedColumnType.base[Date, java.sql.Timestamp](
-    d => if(d==null) null else new Timestamp(d.getTime),
+    d => new Timestamp(d.getTime),
     ts => new Date(ts.getTime)
   )
 
