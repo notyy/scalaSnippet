@@ -65,7 +65,9 @@ libraryDependencies ++= Seq(
   "org.quartz-scheduler" % "quartz" % "2.2.3",
   "org.quartz-scheduler" % "quartz-jobs" % "2.2.3",
   "com.typesafe.slick" %% "slick" % "3.2.1",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1"
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
+  "com.github.dreamhead" % "moco-core" % "0.11.1" exclude("org.apache.httpcomponents", "httpclient"),
+  "org.typelevel" %% "cats-core" % "1.0.0-MF"
 )
 
 //   TODO reopen it later
