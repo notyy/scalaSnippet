@@ -11,6 +11,7 @@ trait CustomerRepo extends StrictLogging {
 
   import database.customers
   import database.databaseApi._
+  import database.userTypeColumnType
 
   def register(name: String,userType: UserType): Future[Customer] = {
     val q = (customers returning customers.map(_.id)
