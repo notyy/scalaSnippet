@@ -7,6 +7,7 @@ import concurrency.akka.simpleIO.GreetingActor.{GreetResp, GreetingReq}
 import concurrency.akka.simpleIO.MultiplyActor.NumberInput
 
 import scala.concurrent.duration._
+import scala.language.postfixOps
 
 object MultiplyActor {
   def props(): Props = Props(new MultiplyActor)

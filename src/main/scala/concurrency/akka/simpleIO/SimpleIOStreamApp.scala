@@ -9,6 +9,7 @@ import com.typesafe.scalalogging.StrictLogging
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.io.StdIn
+import scala.language.postfixOps
 
 object SimpleIOStreamApp extends App with StrictLogging {
   implicit val system = ActorSystem("CodebaseAnalyzer")
