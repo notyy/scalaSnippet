@@ -11,14 +11,19 @@ trait CustomerRepo extends StrictLogging {
 
   import database.customers
   import database.databaseApi._
-  import database.userTypeColumnType
 
   def register(name: String,userType: UserType): Future[Customer] = {
     val q = (customers returning customers.map(_.id)
       into ((customer, id) => customer.copy(id = id))
       ) += Customer(None, name, None,userType,AuditInfo())
+
     q.statements.foreach(s => logger.info(s))
     database.run(q)
+  }
+
+  def nextId(seqName: String): Future[Int] = {
+    val rs = database.run[Int](Sequence[Int](seqName).next.result)
+    rs
   }
 
   def listAll: Future[Seq[Customer]] = database.run(customers.result)
