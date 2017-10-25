@@ -46,7 +46,7 @@ trait Database {
   class CustomerTable(tag: Tag) extends AuditTable[Customer](tag,"customer") {
     def id = column[Option[String]]("ID", O.PrimaryKey, O.AutoInc)
 
-    def name = column[String]("NAME")
+    def name = column[String]("NAME",O.Unique)
 
     def birthday = column[Option[String]]("BIRTHDAY")
 
