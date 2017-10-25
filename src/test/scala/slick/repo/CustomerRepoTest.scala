@@ -1,5 +1,7 @@
 package slick.repo
 
+import java.sql.SQLException
+
 import com.typesafe.scalalogging.StrictLogging
 import org.scalatest.{BeforeAndAfter, FunSpec, Matchers}
 import slick.domain.{CommonUser, SuperUser}
@@ -58,6 +60,20 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
       customers.foreach(println)
       customers.forall(_.name.contains("notyy")) shouldBe true
       customers.forall(_.auditInfo.created.isDefined) shouldBe true
+    }
+    it("supports transaction") {
+      import myDatabase.databaseApi._
+
+      val actions = DBIO.seq(
+        customerRepo.registerAction("notyy", CommonUser),
+        customerRepo.registerAction("notyy", SuperUser) //name is unique, so it should fail
+      ).transactionally
+      try {
+        Await.result(myDatabase.run(actions), 5 seconds)
+      }catch {
+        case (ex:SQLException) => logger.error("error occur with sql", ex)
+      }
+      Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
     }
   }
 }
