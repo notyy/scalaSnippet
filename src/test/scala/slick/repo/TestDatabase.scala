@@ -6,7 +6,7 @@ import slick.basic.DatabaseConfig
 import slick.{DBConfigProvider, Database}
 
 trait TestDatabase {
-   val myDatabase = TestDatabaseInstance
+   lazy val myDatabase = TestDatabaseInstance
 }
 
 object TestDatabaseInstance extends Database with DBConfigProvider with StrictLogging {
