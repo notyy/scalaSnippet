@@ -33,4 +33,7 @@ object CatApp extends App {
 //  println(combineAll(List(1,2,3,4,5))(intMultiMonoid))
   println(combineAll(List("1","2","3")))
   println(combineAll(List((1,2),(3,4),(5,6))))
+  println(combineAll(List((1,"2"),(3,"4"),(5,"6"))))
+  println(combineAll(List(("1",2),("3",4),("5",6))))
+  println(combineAll(List(("1","2"),("3","4"),("5","6"))))
 }
