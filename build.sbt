@@ -67,7 +67,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.2.1",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
   "com.github.dreamhead" % "moco-core" % "0.11.1" exclude("org.apache.httpcomponents", "httpclient"),
-  "org.typelevel" %% "cats-core" % "1.0.0-MF"
+  "org.typelevel" %% "cats-core" % "1.0.0-RC1"
 )
 
 //   TODO reopen it later
