@@ -10,6 +10,7 @@ import slick.{DBConfigProvider, Database}
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import scala.util.{Failure, Success}
 
 class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with StrictLogging with TestDatabase {
   val customerRepo = new CustomerRepo with DBConfigProvider {
@@ -24,15 +25,15 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
     Await.result(myDatabase.dropDB(), 5 seconds)
   }
 
-  describe("CustomerRepo"){
-    it("allow user to register customer into database"){
+  describe("CustomerRepo") {
+    it("allow user to register customer into database") {
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
       val customer = Await.result(customerRepo.register("notyy", SuperUser), 5 seconds)
       customer.id should not be empty
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 1
     }
 
-    it("can query user by name fuzzily"){
+    it("can query user by name fuzzily") {
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
       Await.result(customerRepo.register("notyyXXXzz", SuperUser), 5 seconds)
       Await.result(customerRepo.register("notyyYYYzz", SuperUser), 5 seconds)
@@ -48,7 +49,7 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
       customers.forall(_.name.contains("notyy")) shouldBe true
       customers.forall(_.auditInfo.created.isDefined) shouldBe true
     }
-    it("can query by user type"){
+    it("can query by user type") {
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
       Await.result(customerRepo.register("notyyXXXzz", SuperUser), 5 seconds)
       Await.result(customerRepo.register("notyyYYYzz", SuperUser), 5 seconds)
@@ -68,11 +69,13 @@ class CustomerRepoTest extends FunSpec with Matchers with BeforeAndAfter with St
         customerRepo.registerAction("notyy", CommonUser),
         customerRepo.registerAction("notyy", SuperUser) //name is unique, so it should fail
       ).transactionally
-      try {
-        Await.result(myDatabase.run(actions), 5 seconds)
-      }catch {
-        case (ex:SQLException) => logger.error("error occur with sql", ex)
+      import scala.concurrent.ExecutionContext.Implicits.global
+      val rs = myDatabase.run(actions)
+      rs.onComplete {
+        case Success(_) => fail("should not success")
+        case Failure(ex) => logger.error("error occur with sql {}", ex)
       }
+      Await.ready(rs, 5 seconds)
       Await.result(customerRepo.listAll, 5 seconds).length shouldBe 0
     }
   }
