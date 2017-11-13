@@ -15,4 +15,5 @@ case object CommonUser extends UserType
 
 case class Customer(id: Option[String], name: String, birthday: Option[String], userType: UserType, auditInfo: AuditInfo)
 case class Product(id: Option[String], name: String)
-case class Trade(id: Option[String], customer: Customer, product: Product)
+// for demo reason, only allow 1 product 1 customer in 1 order
+case class Order(id: Option[String], customer: Customer, product: Product)

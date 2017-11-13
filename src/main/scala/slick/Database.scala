@@ -25,10 +25,13 @@ trait Database {
     ts => new Date(ts.getTime)
   )
 
-  abstract class AuditTable[T](tag: Tag, tableName: String) extends Table[T](tag: Tag, tableName:String){
-    def created = column[Option[Date]]("CREATED",O.SqlType("TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL"))
+  abstract class AuditTable[T](tag: Tag, tableName: String) extends Table[T](tag: Tag, tableName: String) {
+    def created = column[Option[Date]]("CREATED", O.SqlType("TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL"))
+
     def createdBy = column[Option[String]]("CREATED_BY")
-    def updated = column[Option[Date]]("UPDATED",O.SqlType("TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL"))
+
+    def updated = column[Option[Date]]("UPDATED", O.SqlType("TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL"))
+
     def updatedBy = column[Option[String]]("UPDATED_BY")
   }
 
@@ -43,34 +46,61 @@ trait Database {
     }
   )
 
-  class CustomerTable(tag: Tag) extends AuditTable[Customer](tag,"customer") {
+  class CustomerTable(tag: Tag) extends AuditTable[Customer](tag, "customer") {
     def id = column[Option[String]]("ID", O.PrimaryKey, O.AutoInc)
 
-    def name = column[String]("NAME",O.Unique)
+    def name = column[String]("NAME", O.Unique)
 
     def birthday = column[Option[String]]("BIRTHDAY")
 
     def userType = column[UserType]("USER_TYPE")
 
-    def * = (id, name, birthday,userType, (created, createdBy,updated,updatedBy)) <>
-      (
-        {
-          case (id,name,birthday,userType, audit ) =>
-            Customer(id,name,birthday,userType,AuditInfo.tupled.apply(audit))
-        },
-        {
-          c: Customer => Some(c.id,c.name,c.birthday,c.userType,AuditInfo.unapply(c.auditInfo).get)
-        }
+    def * = (id, name, birthday, userType, (created, createdBy, updated, updatedBy)) <>
+      ( {
+        case (id, name, birthday, userType, audit) =>
+          Customer(id, name, birthday, userType, AuditInfo.tupled.apply(audit))
+      }, {
+        c: Customer => Some(c.id, c.name, c.birthday, c.userType, AuditInfo.unapply(c.auditInfo).get)
+      }
       )
   }
 
   val customers = TableQuery[CustomerTable]
 
+  class ProductTable(tag: Tag) extends Table[Product](tag, "product") {
+    def id = column[Option[String]]("ID", O.PrimaryKey, O.AutoInc)
+
+    def name = column[String]("NAME", O.Unique)
+
+    def * = (id, name) <> (Product.tupled, Product.unapply)
+  }
+
+  val products = TableQuery[ProductTable]
+
+  class OrderTable(tag: Tag) extends Table[(Option[String], String, String)](tag, "order") {
+    def id = column[Option[String]]("ID", O.PrimaryKey, O.AutoInc)
+
+    def customerId = column[String]("CUSTOMER_ID")
+
+    def productId = column[String]("PRODUCT_ID")
+
+    def * = (id, customerId, productId) // <> (Order.tupled,Order.unapply)
+
+    def customerIdFK = foreignKey("FK_CUSTOMER", customerId, customers)(customer => customer.id.get)
+
+    def productIdFK = foreignKey("FK_PRODUCT", productId, products)(product => product.id.get)
+  }
+
+  val orders = TableQuery[OrderTable]
+
+
   def setupDB(): Future[Unit] = {
     println("create tables:")
     customers.schema.createStatements.foreach(println)
     val setUp = DBIO.seq(
-      customers.schema.create
+      customers.schema.create,
+      products.schema.create,
+      orders.schema.create
     )
     run(setUp)
   }
@@ -78,7 +108,9 @@ trait Database {
   def dropDB(): Future[Unit] = {
     println("delete tables:")
     val drop = DBIO.seq(
-      customers.schema.drop
+      orders.schema.drop,
+      customers.schema.drop,
+      products.schema.drop
     )
     run(drop)
   }
