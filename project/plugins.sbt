@@ -11,3 +11,5 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
 addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.0.3")
 
 addSbtPlugin("org.xerial.sbt" % "sbt-pack" % "0.6.12")
+
+//addSbtPlugin("co`m.github.mwz" % "sbt-sonar" % "1.3.0")
