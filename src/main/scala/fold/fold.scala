@@ -24,4 +24,13 @@ object fold extends App{
   val conditions = List("xx = 1","yy > 2","zz < 3")
   def concat: List[String] => String = reduce(_)((acc,i) => s"$acc AND $i")
   println(s"SELECT * FROM user WHERE ${concat(conditions)}")
+
+//  @annotation.tailrec
+//  def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B = l match {
+//    case Nil => z
+//    case Cons(h, t) => foldLeft(t, f(z, h))(f)
+//  }
+//
+//  def foldRight[A, B](l: List[A], z: B)(f: (A, B) => B): B =
+//    foldLeft(l, (b: B) => b)((g, a) => b => g(f(a, b)))(z)
 }
